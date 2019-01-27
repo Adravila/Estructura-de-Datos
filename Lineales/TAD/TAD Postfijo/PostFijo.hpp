@@ -1,62 +1,69 @@
 #include <iostream>
-#include "cola_enla.hpp"
-#include "pila_enla.hpp"
+#include "Pila_enla.h"
 
-struct Simbolo{
-	double operando;
-	char operador;
-	Simbolo(char opr = ' ') : operador(opr), operando(0) {}
-	Simbolo(double opn = 0) : operador(' '), operando(opn) {}
+struct tVariable
+{
+	tVariable(int operando = 0) : val(operando), op(' ') {}
+	tVariable(char operador = ' ') : val(0), op(operador) {}
+	int getOperando() const { return val; }
+	char getOperador() const { return op; }
+	private:
+		char op;
+		int val;
 };
 
-typedef Cola<Simbolo> expresion;
 
-class PostFijo{
-public:
-	PostFijo(){}
-	double evaluar(expresion& e);
-	bool esOperando(const Simbolo& s) const;
-	Simbolo operar(const Simbolo& o1, const Simbolo& o2, const Simbolo& r);
-	Simbolo siguienteSimbolo(expresion& e);
-private:
-	Pila<Simbolo> P;
-};
-
-Simbolo PostFijo::siguienteSimbolo(expresion& e){
-	Simbolo s = e.frente();
-	e.pop();
-	return s;
-}
-
-bool PostFijo::esOperando(const Simbolo& s) const{
-	return s.operador == ' ';
-}
-
-Simbolo PostFijo::operar(const Simbolo& o1, const Simbolo& o2, const Simbolo& r){
-	switch(r.operador){
-		case '+': return o1.operando + o2.operando;
-		case '-': return o1.operando - o2.operando;
-		case '/': return o1.operando / o2.operando;
-		case '*': return o1.operando * o2.operando;
-	}
-}
-
-double PostFijo::evaluar(expresion& e){
-	Simbolo s(' ');
-	Simbolo o1(0.), o2(0.), r(0.);
-
-	do{
-		s = siguienteSimbolo(e);
-		if(esOperando(s))
-			P.push(s);
-		else{
-			o2 = P.tope();
-			P.pop();
-			o1 = P.tope();
-			P.pop();
-			r = operar(o1,o2,s);
-			P.push(r);
+int calcularPostfijo(const Pila<tVariable>& P)
+{
+	Pila<tVariable> Pila_OP, Pila_TOTAL;
+	int val_1 = 0, val_2 = 0, res = 0;
+	bool ope_pendientes = false;
+	Pila_TOTAL = P; // Constructor implícito de copia
+	while(!Pila_TOTAL.vacia())
+	{
+		if(Pila_TOTAL.tope().getOperador() != ' ') // Si es un operador
+		{
+			Pila_OP.push(Pila_TOTAL.tope().getOperador());
+			Pila_TOTAL.pop();
 		}
-	}while(!e.vacia());
-	return P.tope().operando;
+		else
+		{
+			// Para asegurarnos de que existan dos operandos hacemos lo siguiente,
+			// para evitar errores en la ejecución.
+			if(!ope_pendientes)
+			{
+				if(val_1 == 0)
+				{
+					val_1 = Pila_TOTAL.tope().getOperando();
+					Pila_TOTAL.pop();
+				}
+				else
+				{
+					val_2 = Pila_TOTAL.tope().getOperando();
+					Pila_TOTAL.pop();
+				}
+			}
+			else
+			{
+				val_1 = res;
+				val_2 = Pila_TOTAL.tope().getOperando();
+				Pila_TOTAL.pop();	
+			}
+			
+			if(val_1 != 0 && val_2 != 0)
+			{
+				switch(Pila_OP.tope().getOperador())
+				{
+					case '+' : res = val_2 + val_1; break;
+					case '-' : res = val_2 - val_1; break;
+					case '*' : res = val_2 * val_1;	break;  
+					case '/' : res = val_2 / val_1; break;
+				}
+				val_1 = 0; val_2 = 0;
+				ope_pendientes = true;
+				Pila_OP.pop();	
+			}
+		}
+	}
+	return res;
 }
