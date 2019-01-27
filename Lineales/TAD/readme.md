@@ -1,15 +1,15 @@
 Lista de **TAD** para practicar:
-- **TAD Escalonada** [Diciembre 2014 conv especial, Junio 2017] [Completado]
-- **TAD Texto** (Pila enlazada) [Septiembre 2014] **[Completado]**
-- **TAD Consultorio** (Lista enlazada) [Febrero 2016] [Completado]
-- **TAD Hospital** (Lista vectorial) [Completado]
+- **TAD Escalonada** [Diciembre 2014 conv especial, Junio 2017] **[Revisar]**
+- **TAD Texto** (Pila enlazada) [Septiembre 2014] **[Revisar]**
+- **TAD Consultorio** (Lista enlazada) [Febrero 2016] **[Revisar]**
+- **TAD Hospital** (Lista vectorial) **[Revisar]**
 - **TAD Símbolo** (Lista enlazada) [Febrero 2015, Febrero 2017] **[Completado]**
 - **TAD Tren** (Pila enlazada) [Junio 2014, Junio 2015, Febrero 2018] **[Completado]**
 - **TAD Cursor** (Pila enlazada) **[Completado]**
-- **TAD Diccionario** [Completado]
-- **TAD Bicola** [Completado]
-- **TAD Cocina** (Lista vectorial) [Febrero 2014, Junio 2016, Junio 2018 (Especial)] [Sin empezar]
-- **TAD Palíndromo** [Sin empezar]
-- **TAD Postfijo** (Pila enlazada) [Septiembre 2015, Septiembre 2017] [Completado]
-- **TAD Cubilete** [Septiembre 2016, Septiembre 2018] **[Completado]**
-- **TAD Binario** (Lista enlazada) [Junio 2018] 
+- **TAD Diccionario** **[Revisar]**
+- **TAD Bicola** **[Revisar]**
+- **TAD Cocina** (Lista vectorial) [Febrero 2014, Junio 2016, Junio 2018 (Especial)] **[Revisar]**
+- **TAD Palíndromo** **[Revisar]**
+- **TAD Postfijo** (Pila enlazada) [Septiembre 2015, Septiembre 2017] **[Completado]**
+- **TAD Cubilete** [Septiembre 2016, Septiembre 2018] **[Revisar]**
+- **TAD Binario** (Lista enlazada) [Junio 2018] **[Revisar]**
