@@ -15,11 +15,10 @@ int main()
     cout << "ABC*+ = " << calcularPostfijo(P1) << endl;
 
     // CAB+*=48 --> C*(A+B)
-    P2.push(C); P2.push(A); P2.push(B); P2.push(op_suma); P2.push(op_prod); 
+    P2.push(C); P2.push(A); P2.push(B); P2.push(op_suma); P2.push(op_prod);  
     cout << "CAB+* = " << calcularPostfijo(P2) << endl;
 
     // CBA-/=3 --> C/(B-A)
     P3.push(C); P3.push(B); P3.push(A); P3.push(op_resta); P3.push(op_div);
     cout << "CBA-/ = " << calcularPostfijo(P3) << endl;
-
 }

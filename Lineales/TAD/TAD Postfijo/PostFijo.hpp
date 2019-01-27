@@ -7,11 +7,11 @@ struct tVariable
 	tVariable(char operador = ' ') : val(0), op(operador) {}
 	int getOperando() const { return val; }
 	char getOperador() const { return op; }
+	
 	private:
 		char op;
 		int val;
 };
-
 
 int calcularPostfijo(const Pila<tVariable>& P)
 {
@@ -29,7 +29,7 @@ int calcularPostfijo(const Pila<tVariable>& P)
 		else
 		{
 			// Para asegurarnos de que existan dos operandos hacemos lo siguiente,
-			// para evitar errores en la ejecución.
+			// para evitar errores en la ejecución.			
 			if(!ope_pendientes)
 			{
 				if(val_1 == 0)
@@ -52,6 +52,7 @@ int calcularPostfijo(const Pila<tVariable>& P)
 			
 			if(val_1 != 0 && val_2 != 0)
 			{
+				assert(!Pila_OP.vacia());	// Debe contener al menos un operador
 				switch(Pila_OP.tope().getOperador())
 				{
 					case '+' : res = val_2 + val_1; break;
