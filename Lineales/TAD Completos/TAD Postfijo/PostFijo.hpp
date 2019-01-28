@@ -18,7 +18,7 @@ int calcularPostfijo(const Pila<tVariable>& P)
 	Pila<tVariable> Pila_OP, Pila_TOTAL;
 	int val_1 = 0, val_2 = 0, res = 0;
 	bool ope_pendientes = false;
-	Pila_TOTAL = P; // Constructor implícito de copia
+	Pila_TOTAL = P; // Constructor de asignación
 	while(!Pila_TOTAL.vacia())
 	{
 		if(Pila_TOTAL.tope().getOperador() != ' ') // Si es un operador
