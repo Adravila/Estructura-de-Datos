@@ -17,14 +17,17 @@ void InvertirSerie(Pila<int>& P, int a, int b)
                 P_DCH.push(P.tope());
                 P.pop();
             }
-            P_DCH.push(P.tope());
+
+            P_DCH.push(P.tope()); // AÑADIR +1
+            
             // dar la vuelta
             while(!P_DCH.vacia())
             {
                 P_MED.push(P_DCH.tope());
                 P_DCH.pop();
             }
-            P.pop();
+
+            P.pop(); // ELIMINAR SOBRANTE
             proceso = true; // Evitar invertir elementos para otro rango
         }
         if(proceso == true) // Caso DERECHO
@@ -39,7 +42,7 @@ void InvertirSerie(Pila<int>& P, int a, int b)
         }
     }
     
-    // Concatenamos las tres pilas
+    // Concatenamos las tres pilas (de derecha a izquierda)
     while(!P_DCH.vacia())
     {
         P.push(P_DCH.tope());
