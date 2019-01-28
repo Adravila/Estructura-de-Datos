@@ -4,7 +4,7 @@ Lista de **TAD** para practicar:
 - **TAD Consultorio** (Lista enlazada) [Febrero 2016] **[Revisar]**
 - **TAD Hospital** (Lista vectorial) **[Revisar]**
 - **TAD Símbolo** (Lista enlazada) [Febrero 2015, Febrero 2017] **[Completado]**
-- **TAD Tren** (Pila enlazada) [Junio 2014, Junio 2015, Febrero 2018] **[Completado]**
+- **TAD Tren** (Pila enlazada) [Junio 2014, Junio 2015, Febrero 2018] **[Completado y revisado]**
 - **TAD Diccionario** **[Revisar]**
 - **TAD Bicola** **[Revisar]**
 - **TAD Cocina** (Lista vectorial) [Febrero 2014, Junio 2016, Junio 2018 (Especial)] **[Revisar]**
