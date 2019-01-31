@@ -1,6 +1,6 @@
 Lista de **TAD** para practicar:
 - **TAD Escalonada** [Diciembre 2014 conv especial, Junio 2017] **[Revisar]**
-- **TAD Texto** (Pila enlazada) [Septiembre 2014] **[Revisar]**
+- **TAD Texto** (Pila enlazada) [Septiembre 2014] **[Completado y revisado]**
 - **TAD Consultorio** (Lista enlazada) [Febrero 2016] **[Revisar]**
 - **TAD Hospital** (Lista vectorial) **[Revisar]**
 - **TAD Símbolo** (Lista enlazada) [Febrero 2015, Febrero 2017] **[Completado]**
