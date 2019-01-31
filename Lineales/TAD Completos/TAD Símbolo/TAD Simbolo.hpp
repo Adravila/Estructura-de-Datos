@@ -1,7 +1,7 @@
 #ifndef SIMBOLO_HPP_INCLUDED
 #define SIMBOLO_HPP_INCLUDED
 #include <iostream>
-#include "lista_enla.hpp"
+#include "Lista_enla.h"
 
 /**
 	Vamos a usar el TAD Lista para manipular todos los trazos del símbolo en un orden lineal O(n), además
@@ -41,27 +41,27 @@
 	void Simetrica(char t); 
 **/
 
-typedef char Trazo;
+typedef char tTrazo, tEje;
 
 class Simbolo
 {
 	public:
 		Simbolo();
-		void AgregarTrazo(const char x);
+		void AgregarTrazo(const tTrazo& x);
 		void DeshacerTrazo(unsigned n = 0);
-		void Simetrica(char t); 
+		void Simetrica(const tTrazo& t); 
 
 		void mostrarSimbolo(); // Exclusiva 
 	private:
 		void SimetricaX(); 
 		void SimetricaY(); 
-		Lista<Trazo> L;
-		Lista<Trazo>::posicion p;
+		Lista<tTrazo> L;
+		Lista<tTrazo>::posicion p;
 };
 
 Simbolo::Simbolo(){}
 
-void Simbolo::AgregarTrazo(const char x)
+void Simbolo::AgregarTrazo(const tTrazo& x)
 {
 	p = L.fin();
 	if('I' == x || 'D' == x || 'S' == x || 'B' == x)
@@ -69,8 +69,7 @@ void Simbolo::AgregarTrazo(const char x)
 }
 
 void Simbolo::DeshacerTrazo(unsigned n)
-{
-	
+{	
 	p = L.fin();
 	p = L.anterior(p);
 
@@ -94,9 +93,8 @@ void Simbolo::DeshacerTrazo(unsigned n)
 	L.eliminar(p);
 }
 
-void Simbolo::Simetrica(char t)
+void Simbolo::Simetrica(const tEje& t)
 {
-
 	p = L.primera();
 
 	while(p != L.fin())
