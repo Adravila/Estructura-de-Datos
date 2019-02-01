@@ -1,5 +1,5 @@
 #include <iostream>
-#include "lista_enla.hpp"
+#include "Lista_enla.h"
 #include <string>
 
 /**
