@@ -1,12 +1,15 @@
 #ifndef SIMBOLO_HPP_INCLUDED
 #define SIMBOLO_HPP_INCLUDED
 #include <iostream>
-#include "Lista_enla.h"
+#include "Lista_doble.h"
 
 /**
-	Vamos a usar el TAD Lista para manipular todos los trazos del símbolo en un orden lineal O(n), además
-	utilizaremos la representación mediante celdas enlazadas, ya que no será necesario controlar el
-	número de elementos que tendrá en la lista, por lo que vamos a utilizar las siguientes operaciones: 
+	Vamos a usar el TAD Lista para manipular todos los trazos del símbolo en un orden lineal O(n),
+	utilizaremos la representación con celdas doblemente enlazadas, ya que en la operación DeshacerTrazo
+	se recorre los elementos de la lista desde el final hasta la primera posición (por lo que al usar esta
+	representación el coste las operaciones fin y anterior serán de O(1) en vez de O(n)), 
+	además de esto, no será necesario controlar el número de elementos que tendrá en la lista 
+	por lo que vamos a utilizar las siguientes operaciones: 
 		
 		- Lista()
 		- void insertar(const T& x, posicion p)
