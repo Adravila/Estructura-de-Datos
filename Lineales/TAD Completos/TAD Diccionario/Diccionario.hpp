@@ -1,70 +1,101 @@
-#ifndef DICCIONARIO
-#define DICCIONARIO
 #include <iostream>
-#include <cstdlib>
-#include <cstring>
-#include "Lista.h"
+#include "Lista_enla.h"
+#include <string>
 
-struct Traduccion {
-    std::string ingles;
-    Lista<string> trad;
-    palabra(std::string& i, Lista<string>& tr) : ingles(i), trad(tr) {}
+/**
+ESPECIFICACIÓN DEL TAD DICCIONARIO
+void Diccionario::insertarTraduccionESPtoENG(string eng, string esp)
+Postcondición: Inserta la traducción de una palabra español al inglés. Si no existe la palabra en inglés se le agrega.
+
+void Diccionario::eliminarTraduccionESPtoENG(string eng, string esp)
+Postcondición: Elimina la traducción de una palabra español al inglés. Si no existe la palabra no se hace nada.
+
+void Diccionario::consultarTraduccionENG(string trad)
+Postcondición: Muestra las palabras traducidas que contiene la palabra en inglés al español.
+**/
+
+using namespace std;
+
+struct Palabra
+{
+	Palabra(string pal = "") : english(pal) {}
+	string english;
+	Lista<string> Spanish;
 };
 
-class Diccionario {
-public:
-    Diccionario(int plb) : palabras(plb) {}
-    void insertar(string& english, string& spanish, size_t n);
-    void eliminar(string& english, string& spanish, size_t n);
-    Diccionario consultar(string& english);
-    ~Diccionario();
-private:
-    Lista<Traduccion> L1;
-    int palabras;
+class Diccionario
+{
+    public:
+        void insertarTraduccionESPtoENG(string eng, string esp);
+        void eliminarTraduccionESPtoENG(string eng, string esp);
+        void consultarTraduccionENG(string trad);
+    private:
+	    Lista<Palabra> L;
 };
 
-void Diccionario::insertar(string& english, string& spanish, size_t n) {
-    typename Lista<Traduccion>::posicion x = L1.primera();
-    bool encontrado = false;
-    while(x != L1.fin() && encontrado == false) {
-        if(strcmp(L1.elemento(x).ingles, english, n) == 0)
-        L1.elemento(x).trad.insertar(spanish, trad.fin());
-        encontrado = true;
-        else {
-            Traduccion T1;
-            strcpy(T1.ingles, english);
-            T1.trad.insertar(spanish, trad.fin());
-            L1.insertar(T1, x);
+
+void Diccionario::insertarTraduccionESPtoENG(string eng, string esp){
+	Lista<Palabra>::posicion pos = L.primera();
+	bool encontrado = false;
+
+	while(pos != L.fin())
+    {
+		if(L.elemento(pos).english == eng)
+        {
+			Lista<string>::posicion pos_p = L.elemento(pos).Spanish.fin();
+			L.elemento(pos).Spanish.insertar(esp,pos_p);
+			pos = L.fin();
             encontrado = true;
-        }
-        L1.siguiente(x);
-    }
+		}
+	}
+    if(encontrado == false)
+    {
+		Palabra pal(eng);
+		Lista<string>::posicion p = pal.Spanish.fin();
+		pal.Spanish.insertar(esp,p);
+		L.insertar(pal,pos);
+	}
 }
 
-void Diccionario::eliminar(string& english, string& spanish, size_t n) {
-    typename Lista<Traduccion>::posicion x = L1.primera();
-    bool encontrado = false;
-    while(x != L1.fin() && encontrado == false) {
-        if(strcmp(L1.elemento(x).ingles, english, n) == 0) {
-            typename Lista<string>::posicion y = L1.elemento(x).trad.buscar(spanish);
-            L1.elemento(x).trad.eliminar(y);
-            encontrado = true;
-        }
-    L1.siguiente(x);
-    }
+void Diccionario::eliminarTraduccionESPtoENG(string eng, string esp){
+	Lista<Palabra>::posicion pos = L.primera();
+
+	while(pos != L.fin())
+    {
+		if(L.elemento(pos).english == eng)
+        {
+			Lista<string>::posicion pos_p = L.elemento(pos).Spanish.primera();
+			while(pos_p != L.elemento(pos).Spanish.fin())
+            {
+				if(L.elemento(pos).Spanish.elemento(pos_p) == esp)
+                {
+					L.elemento(pos).Spanish.eliminar(pos_p);
+					pos_p = L.elemento(pos).Spanish.fin();
+				}
+				else
+					pos_p = L.elemento(pos).Spanish.siguiente(pos_p);
+			}
+		}
+		pos = L.siguiente(pos);
+	}
 }
 
-Diccionario Diciconario::consultar(string& english, size_t n) {
-    typename Lista<Traduccion>::posicion x = L1.primera();
-    while(x != L1.fin()) {
-        if(strcmp(L1.elemento(x).ingles, english, n) == 0)
-            return L1.elemento(x);
-        L1.siguiente(x);
-    }
+void Diccionario::consultarTraduccionENG(string trad)
+{
+	Lista<Palabra>::posicion pos = L.primera();
+	while(pos != L.fin())
+    {
+		if(L.elemento(pos).english == trad)
+        {
+			cout << "La palabra en inglés '" << trad << "' se traduce en español: ";
+			Lista<string>::posicion pos_p = L.elemento(pos).Spanish.primera();
+			while(pos_p != L.elemento(pos).Spanish.fin())
+            {
+				cout << L.elemento(pos).Spanish.elemento(pos_p) << " ";
+				pos_p = L.elemento(pos).Spanish.siguiente(pos_p);
+			}
+			cout << endl;
+			pos = L.fin();
+		}
+	}
 }
-
-Diccionario::~Diccionario() {
-    L1.~Lista();
-}
-
-#endif
