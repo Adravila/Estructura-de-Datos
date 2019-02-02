@@ -1,4 +1,4 @@
-## Enunciado TAD Texto [OK]
+## Enunciado TAD Texto
 Definir prototipos, operaciones del TAD. No hay carácter de salto de línea, el texto te lo dan a partir de la estructura.
 
 Diseñe una estructura de datos para almacenar en memoria un texto del cual desconocemos el número de líneas y caracteres por línea. 
