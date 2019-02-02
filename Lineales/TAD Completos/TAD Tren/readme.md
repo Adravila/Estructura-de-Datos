@@ -1,4 +1,4 @@
-## Enunciado TAD Tren [OK]
+## Enunciado TAD Tren
 Realizar la especificación e implementación de un **TAD Tren** que sirva para representar secuencias (de longitud arbitraria) de vagones (se supone que el tipo vagón está predefinido). Si la secuencia no está vacía, hay un vagón del tren denominado 'activo' sobre el que puede actuar un robot manipulador. Las operaciones que se piden son:
  - Crear un tren
  - **Desplazar a la izquierda**: Mueve un tren una posición a la izquierda de manera que el nuevo vagón activo es el que está inmediatamente a la derecha del actual. Si no hay vagón a la derecha no se hace nada.
