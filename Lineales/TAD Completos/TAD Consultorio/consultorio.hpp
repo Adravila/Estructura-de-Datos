@@ -7,6 +7,8 @@ typedef int tPaciente;
 
 struct tMedico
 {
+	tMedico(const char* nombre) : nombre(nombre) {}
+	tMedico(){}
 	Cola<tPaciente>cola;
 	const char* nombre;
 };
@@ -14,7 +16,7 @@ struct tMedico
 class Consultorio
 {
 	public:
-		Consultorio(){}
+		Consultorio();
 		void AltaMedico(const tMedico& m);
 		void BajaMedico(const tMedico& m);
 		void ListaEspera(const tPaciente& pa, const tMedico& m);
@@ -25,6 +27,11 @@ class Consultorio
 		Lista<tMedico> med;
 		Lista<tMedico>::posicion p;
 };
+
+Consultorio::Consultorio()
+{
+	med = Lista<tMedico>();
+}
 
 bool operator == (const tMedico& m1, const tMedico& m2){
 	return m1.nombre == m2.nombre;

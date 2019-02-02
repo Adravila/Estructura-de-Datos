@@ -3,14 +3,9 @@
 
 int main()
 {
-    tMedico t1, t2, t3, t4;
-    t1.nombre = "Pablo";
-    t2.nombre = "Joaquin";
-    t3.nombre = "Elena";
-    t4.nombre = "Rosa";
-
+    tMedico t1("Pablo"), t2("Joaquin"), t3("Elena"), t4("Rosa");
     tPaciente p1 = 1, p2 = 2, p3 = 3, p4 = 4, p5 = 5, p6 = 6, p7 = 7;
-
+ 
     Consultorio c;
     c.AltaMedico(t1);
     c.AltaMedico(t2);
@@ -38,5 +33,4 @@ int main()
     {
       std::cout << "No" << std::endl;  
     }
-    
 }
