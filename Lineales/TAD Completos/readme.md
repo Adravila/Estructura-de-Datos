@@ -1,7 +1,7 @@
 Lista de **TAD** para practicar:
 - **TAD Texto** (Lista doblemente enlazada) [Septiembre 2014] **[Completado y revisado]**
 - **TAD Símbolo** (Lista doblemente enlazada) [Febrero 2015, Febrero 2017] **[Completado y revisado]**
-- **TAD Postfijo** (Pila enlazada) [Septiembre 2015, Septiembre 2017] **[Completado y revisado]**
+- **TAD Postfijo** (Pila enlazada) [Septiembre 2015, Septiembre 2017, Enero 2019] **[Completado y revisado]**
 - **TAD Tren** (Pila enlazada) [Junio 2014, Junio 2015, Febrero 2018] **[Completado y revisado]**
 - **TAD Consultorio** (Lista enlazada) [Febrero 2016] **[Completado y revisado]**
 - **TAD Cubilete** [Septiembre 2016, Septiembre 2018] **[Completado y revisado]**
