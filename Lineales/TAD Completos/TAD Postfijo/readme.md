@@ -22,5 +22,5 @@ Ejemplo: **A=3, B=5, C=6**
 
 ABC*+= 33 **-->** A+(B*C) , AB+C*=48 **-->** (A+B)*C, CBA-/=3 **-->** C/(B-A)
 
-Notación polaca inversa
+Notación polaca inversa, más información: 
 https://es.wikipedia.org/wiki/Notación_polaca_inversa
