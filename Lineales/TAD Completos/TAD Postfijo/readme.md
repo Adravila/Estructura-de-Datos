@@ -21,3 +21,6 @@ Dada una expresión postfijo y los valores de las variables que aparecen en la e
 Ejemplo: **A=3, B=5, C=6**
 
 ABC*+= 33 **-->** A+(B*C) , AB+C*=48 **-->** (A+B)*C, CBA-/=3 **-->** C/(B-A)
+
+Notación polaca inversa
+https://es.wikipedia.org/wiki/Notación_polaca_inversa
