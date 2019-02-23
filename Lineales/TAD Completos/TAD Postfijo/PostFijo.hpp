@@ -25,7 +25,6 @@ int calcularPostfijo(const Cola<tVariable>& P)
 		else
 		{
 			tVariable val_1(0), val_2(0);
-			int res = 0;
 			val_1 = P_OP.tope();
 			P_OP.pop();
 			assert(!P_OP.vacia()); // No se puede operar si no se cumple esto
