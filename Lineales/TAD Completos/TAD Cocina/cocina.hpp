@@ -1,5 +1,4 @@
 #ifndef COCINA_H
-#define COCINA_H
 #include <iostream>
 #include "listaDinamica.h"
 
