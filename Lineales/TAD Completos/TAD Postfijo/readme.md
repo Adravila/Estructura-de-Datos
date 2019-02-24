@@ -1,4 +1,4 @@
-## Enunciado TAD Postfijo [Completado]
+## Enunciado TAD Postfijo
 -**Infijo:** El operador está entre dos operandos
 
 -**Postfijo:** El operador se escribe después de los operandos.
