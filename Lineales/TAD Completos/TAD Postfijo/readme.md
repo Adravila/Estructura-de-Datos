@@ -24,3 +24,43 @@ ABC*+= 33 **-->** A+(B*C) , AB+C*=48 **-->** (A+B)*C, CBA-/=3 **-->** C/(B-A)
 
 Notación polaca inversa, más información: 
 https://es.wikipedia.org/wiki/Notación_polaca_inversa
+
+Resultado:
+
+En esta función se recibe como parámetro una cola del tipo *tVariable* (que puede ser un entero u operador), dicha cola se utilizará la representación mediante una estructura enlazada con dos punteros a los extremos del TAD Cola. Por lo tanto, O(1) en recorrer inicio y fin y O(1) en operaciones pop() y push(const T& x).
+
+Se creará una estructura de datos tVariable
+```
+struct tVariable
+{
+  tVariable(){}
+  tVariable(int val): val_(val), op_(' ') {}
+  tVariable(char op): val_(0), op_(op) {}
+  char op;
+  int val;
+};
+```
+Se hará sobrecarga para que pueda dar dos usos a tVariable: ser un **operador** o un **operando**.
+
+Por otro lado, la función devolverá un entero, que es el resultado del Postfijo.
+
+Operaciones de la representación mediante celdas enlazadas con dos punteros a los extremos del TAD Cola:
+
+PARTE PÚBLICA:
+```
+bool vacia() const;
+const T& frente() const;
+void pop();
+void push(const T& x);
+// ...
+```
+PARTE PRIVADA:
+```
+struct nodo
+{
+  T elto;
+  nodo *sig;
+  nodo(const T &e, nodo *p = 0) : elto(e), sig(p) {}
+};
+nodo *inicio, *fin;
+```
