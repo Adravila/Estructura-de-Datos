@@ -29,7 +29,7 @@ Resultado:
 
 En esta función se recibe como parámetro una cola del tipo *tVariable* (que puede ser un entero u operador), dicha cola se utilizará la representación mediante una estructura enlazada con dos punteros a los extremos del TAD Cola. Por lo tanto, O(1) en recorrer inicio y fin y O(1) en operaciones pop() y push(const T& x).
 
-Se creará una estructura de datos tVariable
+Se creará una **estructura de datos** tVariable
 ```
 struct tVariable
 {
@@ -42,11 +42,11 @@ struct tVariable
 ```
 Se hará sobrecarga para que pueda dar dos usos a tVariable: ser un **operador** o un **operando**.
 
-Por otro lado, la función devolverá un entero, que es el resultado del Postfijo.
+Por otro lado, la función devolverá un entero, que es el resultado del **Postfijo**.
 
-Operaciones de la representación mediante celdas enlazadas con dos punteros a los extremos del TAD Cola:
+Operaciones de la representación mediante celdas enlazadas con dos punteros a los extremos del **TAD Cola**:
 
-PARTE PÚBLICA:
+**PARTE PÚBLICA:**
 ```
 bool vacia() const;
 const T& frente() const;
@@ -54,7 +54,7 @@ void pop();
 void push(const T& x);
 // ...
 ```
-PARTE PRIVADA:
+**PARTE PRIVADA:**
 ```
 struct nodo
 {
