@@ -25,7 +25,7 @@ ABC*+= 33 **-->** A+(B*C) , AB+C*=48 **-->** (A+B)*C, CBA-/=3 **-->** C/(B-A)
 Notación polaca inversa, más información: 
 https://es.wikipedia.org/wiki/Notación_polaca_inversa
 
-## Resultado:
+### Resultado:
 
 En esta función se recibe como parámetro una cola del tipo *tVariable* (que puede ser un entero u operador), dicha cola se utilizará la representación mediante una estructura enlazada con dos punteros a los extremos del TAD Cola. Por lo tanto, O(1) en recorrer inicio y fin y O(1) en operaciones pop() y push(const T& x).
 
