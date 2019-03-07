@@ -77,7 +77,6 @@ private:
     if(L == POS_NULL)                                           //Si la posición es nula creamos el primer nodo de la lista
     {
         L = new nodo(x, p, p);
-
         L->ant = L->sig = L;
 
     }

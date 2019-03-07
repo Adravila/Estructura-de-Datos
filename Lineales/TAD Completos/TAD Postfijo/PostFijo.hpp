@@ -1,45 +1,84 @@
 #include <iostream>
 #include "Pila_enla.h"
-#include "Cola_enla.h"
+#include "Lista_enla.h"
+#include <stdlib.h>
+#include <cstring>
 
 struct tVariable
 {
-	tVariable(int operando = 0) : val(operando), op(' ') {}
-	tVariable(char operador = ' ') : val(0), op(operador) {}
-	char op;
+	explicit tVariable(char var_, int val_) : val(val_), var(var_) {}
+	tVariable() {}
+	char var;
 	int val;
 };
 
-int calcularPostfijo(const Cola<tVariable>& P)
+int calcularPostfijo(const char *c, const Lista<tVariable> &L)
 {
-	Pila<tVariable> P_OP;
-	Cola<tVariable> C_ORG = P;
+	Pila<char> P_OP;
+	Lista<tVariable>::posicion p;
+	int cont = 0;
+	int val_1 = 0, val_2 = 0;
 
-	while(!C_ORG.vacia())
+	// Para contar cuantos operandos existen
+	for (int i = 0; i < (unsigned)strlen(c); ++i)
 	{
-		if(C_ORG.frente().op == ' ')
+		cont++;
+	}
+
+	while (cont >= 0)
+	{
+		if (c[cont] == '+' || c[cont] == '-' || c[cont] == '*' || c[cont] == '/')
 		{
-			P_OP.push(C_ORG.frente());
-			C_ORG.pop();
+			P_OP.push(c[cont]);
+			--cont;
 		}
 		else
 		{
-			tVariable val_1(0), val_2(0);
-			val_1 = P_OP.tope();
-			P_OP.pop();
-			assert(!P_OP.vacia()); // No se puede operar si no se cumple esto
-			val_2 = P_OP.tope();
-			P_OP.pop();
-			switch(C_ORG.frente().op)
+			p = L.primera();
+			while (p != L.fin()) // Para buscar los valores que corresponden
 			{
-				case '+': P_OP.push(val_2.val + val_1.val); break;
-				case '-': P_OP.push(val_2.val - val_1.val); break;
-				case '*': P_OP.push(val_2.val * val_1.val); break;
-				case '/': P_OP.push(val_2.val / val_1.val); break;
-				default: std::cout << "Error, no existe dicho operador" << std::endl;
+				if (c[cont] == L.elemento(p).var)
+				{
+					if (val_2 == 0)
+					{
+						val_2 = L.elemento(p).val;
+					}
+					else
+					{
+						val_1 = L.elemento(p).val;
+					}
+					p = L.fin();
+				}
+				else
+				{
+					p = L.siguiente(p);
+				}
 			}
-			C_ORG.pop();
+			--cont;
+		}
+		if(val_1 != 0 && val_2 != 0)
+		{
+			switch (P_OP.tope())
+			{
+			case '+':
+				val_2 = val_1 + val_2;
+				break;
+			case '-':
+				val_2 = val_1 - val_2;
+				break;
+			case '*':
+				val_2 = val_1 * val_2;
+				break;
+			case '/':
+				val_2 = val_1 / val_2;
+				break;
+			default:
+				std::cout << "Error, no existe dicho operador" << std::endl;
+			}
+			P_OP.pop();
+			val_1 = 0;
 		}
 	}
-	return P_OP.tope().val;
+
+	return val_2;
 }

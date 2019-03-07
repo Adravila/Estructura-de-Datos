@@ -2,38 +2,43 @@
 #define COLA_ENLA_H
 #include <cassert>
 
-template <typename T> class Cola {
-public:
-    Cola(); // constructor
-    Cola(const Cola<T>& C); // ctor. de copia
-    Cola<T>& operator =(const Cola<T>& C); // asignación de colas
+template <typename T>
+class Cola
+{
+  public:
+    Cola();                               // constructor
+    Cola(const Cola<T> &C);               // ctor. de copia
+    Cola<T> &operator=(const Cola<T> &C); // asignación de colas
     bool vacia() const;
-    const T& frente() const;
+    const T &frente() const;
     void pop();
-    void push(const T& x);
+    void push(const T &x);
     ~Cola(); // destructor
 
-private:
-    struct nodo {
+  private:
+    struct nodo
+    {
         T elto;
-        nodo* sig;
-        nodo(const T& e, nodo* p = 0): elto(e), sig(p) {}
+        nodo *sig;
+        nodo(const T &e, nodo *p = 0) : elto(e), sig(p) {}
     };
 
     nodo *inicio, *fin; // extremos de la cola
 
-    void copiar(const Cola<T>& C);
+    void copiar(const Cola<T> &C);
 };
 
 // Método privado
 template <typename T>
-void Cola<T>::copiar(const Cola<T>& C)
+void Cola<T>::copiar(const Cola<T> &C)
 {
-    if (C.inicio) { // C no está vacía
+    if (C.inicio)
+    { // C no está vacía
         // Copiar el primer elto.
         inicio = fin = new nodo(C.inicio->elto);
         // Copiar el resto de elementos hasta el final de la cola.
-        for (nodo *p = C.inicio->sig; p; p = p->sig) {
+        for (nodo *p = C.inicio->sig; p; p = p->sig)
+        {
             fin->sig = new nodo(p->elto);
             fin = fin->sig;
         }
@@ -44,15 +49,16 @@ template <typename T>
 inline Cola<T>::Cola() : inicio(0), fin(0) {}
 
 template <typename T>
-inline Cola<T>::Cola(const Cola<T>& C) : inicio(0), fin(0)
+inline Cola<T>::Cola(const Cola<T> &C) : inicio(0), fin(0)
 {
-copiar(C);
+    copiar(C);
 }
 
 template <typename T>
-inline Cola<T>& Cola<T>::operator =(const Cola<T>& C)
+inline Cola<T> &Cola<T>::operator=(const Cola<T> &C)
 {
-    if (this != &C) { // evitar autoasignación
+    if (this != &C)
+    {                  // evitar autoasignación
         this->~Cola(); // vaciar la cola actual
         copiar(C);
     }
@@ -66,7 +72,7 @@ inline bool Cola<T>::vacia() const
 }
 
 template <typename T>
-inline const T& Cola<T>::frente() const
+inline const T &Cola<T>::frente() const
 {
     assert(!vacia());
     return inicio->elto;
@@ -76,16 +82,17 @@ template <typename T>
 inline void Cola<T>::pop()
 {
     assert(!vacia());
-    nodo* p = inicio;
+    nodo *p = inicio;
     inicio = p->sig;
-    if (!inicio) fin = 0;
-        delete p;
+    if (!inicio)
+        fin = 0;
+    delete p;
 }
 
 template <typename T>
-inline void Cola<T>::push(const T& x)
+inline void Cola<T>::push(const T &x)
 {
-    nodo* p = new nodo(x);
+    nodo *p = new nodo(x);
     if (inicio == 0) // cola vacía
         inicio = fin = p;
     else
@@ -96,8 +103,9 @@ inline void Cola<T>::push(const T& x)
 template <typename T>
 Cola<T>::~Cola()
 {
-    nodo* p;
-    while (inicio) {
+    nodo *p;
+    while (inicio)
+    {
         p = inicio->sig;
         delete inicio;
         inicio = p;
