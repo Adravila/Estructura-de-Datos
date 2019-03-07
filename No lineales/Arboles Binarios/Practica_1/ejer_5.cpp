@@ -1,13 +1,13 @@
 #include <iostream>
 #include <fstream>
-#include "abin_vec_0.hpp"
+#include "abin_din.hpp"
 #include "abin_E-S.h"
 
 using namespace std;
 
 int main()
 {
-   Abin<char> A(12);
+   Abin<char> A;
    cout << "\n*** Lectura de árbol binario B de abin.dat ***\n";
    ifstream fe("abin.dat"); // abrir fichero de entrada
    rellenarAbin(fe, A);     // desde fichero
