@@ -2,24 +2,45 @@
 #include <fstream>
 #include "abin_din.hpp"
 #include "abin_E-S.h"
-#include "Pila_enla.h"
+#include "math.h"
 
 using namespace std;
 
-// Forma recursiva (preorden en profundidad)
+// Comprobar si el nodo n tiene tres nietos
+
 template <typename T>
-int contarNodosRec(typename Abin<T>::nodo n, const Abin<T> &A)
+bool nodoConTresNietosRec(const Abin<T> &A, typename Abin<T>::nodo n)
 {
-   if (n == Abin<T>::NODO_NULO)
-      return 0;
-   else
-      return 1 + contarNodosRec(A.hijoIzqdoB(n),A) + contarNodosRec(A.hijoDrchoB(n),A);
+   int cont = 0;
+   typename Abin<T>::nodo m;
+
+   if (A.hijoIzqdoB(n) != Abin<T>::NODO_NULO)
+   {
+      m = A.hijoIzqdoB(n);
+      if(A.hijoIzqdoB(m) != Abin<T>::NODO_NULO) cont++;
+      if(A.hijoDrchoB(m) != Abin<T>::NODO_NULO) cont++;
+   }
+   if (A.hijoDrchoB(n) != Abin<T>::NODO_NULO)
+   {
+      m = A.hijoDrchoB(n);
+      if(A.hijoIzqdoB(m) != Abin<T>::NODO_NULO) cont++;
+      if(A.hijoDrchoB(m) != Abin<T>::NODO_NULO) cont++;
+   }
+   return cont == 3;
 }
 
 template <typename T>
-int contarNodos(const Abin<T> &A)
+bool nodoConTresNietos(const Abin<T> &A, typename Abin<T>::nodo n)
 {
-   return contarNodosRec(A.raizB(),A);
+   if(A.arbolVacioB())
+   {
+      return nodoConTresNietosRec(A, n);
+   }
+   else
+   {
+      return false;
+   }
+   
 }
 
 /****************************************************/
@@ -45,5 +66,5 @@ int main()
    cout << "\n*** Mostrar árbol binario B ***\n";
    imprimirAbin(B); // en std::cout
 
-   cout << "\nContar nodos: " << contarNodos(B) << endl;
+   cout << "\nÁrbol con tres nietos: " << nodoConTresNietos(B,A.raizB()) << endl;
 }

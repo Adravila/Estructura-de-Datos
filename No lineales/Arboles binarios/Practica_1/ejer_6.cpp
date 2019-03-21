@@ -6,7 +6,7 @@
 
 /**
 template <typename T>
-int diferenciaAlturaRec(const Abin<T> &A, typename Abin<T>::nodo n)
+int diferenciaAlturaRec(typename Abin<T>::nodo n, const Abin<T> &A)
 {
     if (n == Abin<T>::NODO_NULO)
         return 0;
@@ -21,7 +21,7 @@ int diferenciaAltura(const Abin<T> &A)
 {
     if (!A.arbolVacioB())
     {
-        return std::max(diferenciaAlturaRec(A, A.hijoIzqdoB(A.raizB())), diferenciaAlturaRec(A, A.hijoDrchoB(A.raizB())));
+        return std::max(diferenciaAlturaRec(A.hijoIzqdoB(A.raizB()),A), diferenciaAlturaRec(A.hijoDrchoB(A.raizB()),A));
     }
     else
     {
@@ -31,27 +31,20 @@ int diferenciaAltura(const Abin<T> &A)
 **/
 
 template <typename T>
-int diferenciaAlturaRec(const Abin<T> &A, typename Abin<T>::nodo n)
+int maxDesequilibrio(typename Abin<T>::nodo n, const Abin<T> &A)
 {
     if (n == Abin<T>::NODO_NULO)
         return 0;
     else
     {
-        return std::max(std::max(abs(A.alturaB(A.hijoIzqdoB(n)) - A.alturaB(A.hijoDrchoB(n))), diferenciaAlturaRec(A, A.hijoIzqdoB(n))), diferenciaAlturaRec(A, A.hijoDrchoB(n)));
+        return std::max(std::max(abs(A.alturaB(A.hijoIzqdoB(n)) - A.alturaB(A.hijoDrchoB(n))), maxDesequilibrio(A.hijoIzqdoB(n),A)), maxDesequilibrio(A.hijoDrchoB(n),A));
     }
 }
 
 template <typename T>
 int diferenciaAltura(const Abin<T> &A)
 {
-    if (!A.arbolVacioB())
-    {
-        return diferenciaAlturaRec(A,A.raizB());
-    }
-    else
-    {
-        return 0;
-    }
+    return maxDesequilibrio(A.raizB(),A);
 }
 
 using namespace std;

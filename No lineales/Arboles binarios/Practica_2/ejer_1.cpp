@@ -33,7 +33,7 @@ int main () {
     cout << "\n*** Mostrar árbol binario A ***\n"; 
     imprimirAbin(A);     
     cout << "\n*** Lectura de árbol binario B de abin.dat ***\n"; 
-    ifstream fa("abin-2.dat");   // abrir fichero de entrada 
+    ifstream fa("abin.dat");   // abrir fichero de entrada 
     rellenarAbin(fa, B);       // desde fichero 
     fa.close(); 
     cout << "\n*** Mostrar árbol binario B ***\n"; 

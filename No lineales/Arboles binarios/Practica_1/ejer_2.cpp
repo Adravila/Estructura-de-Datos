@@ -7,7 +7,7 @@
 using namespace std;
 
 template <typename T>
-int alturaArbolRec(const Abin<T> &A, typename Abin<T>::nodo n)
+int alturaArbolRec(typename Abin<T>::nodo n, const Abin<T> &A)
 {
    if (n == Abin<T>::NODO_NULO)
       return -1;
@@ -18,7 +18,7 @@ int alturaArbolRec(const Abin<T> &A, typename Abin<T>::nodo n)
 template <typename T>
 int alturaArbol(const Abin<T> &A)
 {
-   alturaArbolRec(A, A.raizB());
+   alturaArbolRec(A.raizB(),A);
 }
 
 /****************************************************/

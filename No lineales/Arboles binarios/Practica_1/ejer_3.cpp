@@ -7,17 +7,17 @@ using namespace std;
 
 // Forma recursiva
 template <typename T>
-int profundidadBRec(const Abin<T> &A, typename Abin<T>::nodo n)
+int profundidadBRec(typename Abin<T>::nodo n, const Abin<T> &A)
 {
    if (n == A.raizB())
       return 0;
    else
-      return 1 + profundidadBRec(A, A.padreB(n));
+      return 1 + profundidadBRec(A.padreB(n),A);
 }
 
 // Forma iterativa
 template <typename T>
-int profundidadBIte(const Abin<T> &A, typename Abin<T>::nodo n)
+int profundidadBIte(typename Abin<T>::nodo n, const Abin<T> &A)
 {
    int cont = 0;
    while (n != A.raizB())
@@ -37,5 +37,5 @@ int main()
    fe.close();
    cout << "\n*** Mostrar árbol binario B ***\n";
    imprimirAbin(A); // en std::cout
-   cout << "\nProfundidad de un árbol: " << profundidadBRec(A, (A.hijoDrchoB(A.hijoDrchoB(A.hijoDrchoB(A.raizB()))))) << endl;
+   cout << "\nProfundidad de un árbol: " << profundidadBRec(A.hijoDrchoB(A.hijoDrchoB(A.hijoDrchoB(A.raizB()))),A) << endl;
 }

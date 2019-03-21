@@ -6,28 +6,41 @@
 #include "Cola_enla.h"
 
 template <typename T>
-bool pseudocompletoRec(const Abin<T> &A, typename Abin<T>::nodo n)
+bool pseudocompletoRec(typename Abin<T>::nodo n, const Abin<T> &A)
 {
-    if (n == Abin<T>::NODO_NULO)
+    if (n == Abin<T>::NODO_NULO && A.alturaB(n) == 0)
     {
         return true;
     }
-    else if ((A.hijoIzqdoB(n) != Abin<T>::NODO_NULO && A.hijoDrchoB(n) == Abin<T>::NODO_NULO) || 
-            (A.hijoIzqdoB(n) == Abin<T>::NODO_NULO && A.hijoDrchoB(n) != Abin<T>::NODO_NULO))
+    else if (A.alturaB(n) == 1)
     {
-         return false;
+        if ((A.hijoIzqdoB(n) != Abin<T>::NODO_NULO && A.hijoDrchoB(n) == Abin<T>::NODO_NULO) ||
+            (A.hijoIzqdoB(n) == Abin<T>::NODO_NULO && A.hijoDrchoB(n) != Abin<T>::NODO_NULO))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    else if (A.alturaB(A.hijoIzqdoB(n)) > A.alturaB(A.hijoDrchoB(n)))
+    {
+        return pseudocompletoRec(A.hijoIzqdoB(n), A);
+    }
+    else if (A.alturaB(A.hijoIzqdoB(n)) < A.alturaB(A.hijoDrchoB(n)))
+    {
+        return pseudocompletoRec(A.hijoDrchoB(n), A);
     }
     else
     {
-        return pseudocompletoRec(A,A.hijoIzqdoB(n)) && pseudocompletoRec(A,A.hijoDrchoB(n));
+        return pseudocompletoRec(A.hijoIzqdoB(n), A) && pseudocompletoRec(A.hijoDrchoB(n), A);
     }
-    
-     
 }
 
 // Recorrido en anchura (clase)
 template <typename T>
-bool pseudocompletoAnchura(const Abin<T> &A, typename Abin<T>::nodo n)
+bool pseudocompletoAnchura(typename Abin<T>::nodo n, const Abin<T> &A)
 {
     Cola<typename Abin<T>::nodo> C; // cola de nodos de árbol binario
     if (n != Abin<T>::NODO_NULO)
@@ -39,11 +52,24 @@ bool pseudocompletoAnchura(const Abin<T> &A, typename Abin<T>::nodo n)
                 n = C.frente();
                 C.pop();
             }
-            if ((A.hijoIzqdoB(n) != Abin<T>::NODO_NULO && A.hijoDrchoB(n) == Abin<T>::NODO_NULO) ||
-                (A.hijoIzqdoB(n) == Abin<T>::NODO_NULO && A.hijoDrchoB(n) != Abin<T>::NODO_NULO))
+            // Procesar
+            if (n == Abin<T>::NODO_NULO && A.alturaB(n) == 0)
             {
-                return false;
+                return true;
             }
+            else if (A.alturaB(n) - A.profundidadB(n) == -1)
+            {
+                if ((A.hijoIzqdoB(n) != Abin<T>::NODO_NULO && A.hijoDrchoB(n) == Abin<T>::NODO_NULO) ||
+                    (A.hijoIzqdoB(n) == Abin<T>::NODO_NULO && A.hijoDrchoB(n) != Abin<T>::NODO_NULO))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            // Fin Procesar
             if (A.hijoIzqdoB(n) != Abin<T>::NODO_NULO)
                 C.push(A.hijoIzqdoB(n));
             if (A.hijoDrchoB(n) != Abin<T>::NODO_NULO)
@@ -58,8 +84,8 @@ bool pseudocompleto(const Abin<T> &A)
 {
     if (!A.arbolVacioB())
     {
-        //return pseudocompletoAnchura(A, A.raizB());
-        return pseudocompletoRec(A,A.raizB());
+        return pseudocompletoAnchura(A.raizB(),A);
+        //return pseudocompletoRec(A.raizB(), A);
     }
     else
         return false;
