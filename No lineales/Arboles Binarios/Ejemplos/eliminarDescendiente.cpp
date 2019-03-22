@@ -4,9 +4,9 @@
 #include "abin_E-S.h"
 
 using namespace std;
-
+ 
 template <typename T>
-void encontrarHijo(Abin<T> &A, typename Abin<T>::nodo n)
+void transformarArbol(Abin<T> &A, typename Abin<T>::nodo n)
 {
     if (n != Abin<T>::NODO_NULO)
     {
@@ -17,8 +17,8 @@ void encontrarHijo(Abin<T> &A, typename Abin<T>::nodo n)
         }
         else
         {
-            encontrarHijo(A,A.hijoIzqdoB(n));
-            encontrarHijo(A,A.hijoDrchoB(n));
+            transformarArbol(A,A.hijoIzqdoB(n));
+            transformarArbol(A,A.hijoDrchoB(n));
         }
     }
 }
@@ -56,9 +56,7 @@ int main()
     cout << "\n*** Mostrar árbol binario A ***\n";
     imprimirAbin(A); // en std::cout
 
-    encontrarHijo(A, A.raizB());
+    transformarArbol(A, A.raizB());
 
     imprimirAbin(A); // en std::cout
-
-    //cout << "\nCantidad de nodos con tres nietos: " << encontrarHijo(A, A.raizB()) << endl;
 }
