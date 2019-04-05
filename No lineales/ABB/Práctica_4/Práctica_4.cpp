@@ -9,7 +9,7 @@ using namespace std;
 
 struct Persona
 {
-    Persona(){}
+    Persona() {}
     Persona(string nom, string telf) : nombre(nom), telefono(telf) {}
     string nombre;
     string telefono;
@@ -24,7 +24,7 @@ template <typename T>
 void imprimirPersona(const T &e, const Abb<T> A)
 {
     Abb<Persona> B = A.buscar(e);
-    if(!A.buscar(e).vacio())
+    if (!A.buscar(e).vacio())
     {
         Persona P = B.elemento();
         cout << "Nombre: " << P.nombre << endl;
@@ -34,7 +34,6 @@ void imprimirPersona(const T &e, const Abb<T> A)
     {
         cout << "No se ha encontrado la persona" << endl;
     }
-    
 }
 
 // Ejercicio 1
