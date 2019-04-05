@@ -9,6 +9,7 @@ using namespace std;
 
 struct Persona
 {
+    Persona(){}
     Persona(string nom, string telf) : nombre(nom), telefono(telf) {}
     string nombre;
     string telefono;
@@ -22,21 +23,18 @@ inline bool operator<(const Persona &p1, const Persona &p2)
 template <typename T>
 void imprimirPersona(const T &e, const Abb<T> A)
 {
-    bool encontrado = false;
-    if (!A.vacio() && encontrado == false)
+    Abb<Persona> B = A.buscar(e);
+    if(!A.buscar(e).vacio())
     {
-        if (e.nombre == A.elemento().nombre)
-        {
-            cout << "Nombre: " << A.elemento().nombre << endl;
-            cout << "Telefono: " << A.elemento().telefono << endl;
-            encontrado = true;
-        }
-        else
-        {
-            imprimirPersona(e, A.izqdo());
-            imprimirPersona(e, A.drcho());
-        }
+        Persona P = B.elemento();
+        cout << "Nombre: " << P.nombre << endl;
+        cout << "Telefono: " << P.telefono << endl;
     }
+    else
+    {
+        cout << "No se ha encontrado la persona" << endl;
+    }
+    
 }
 
 // Ejercicio 1
@@ -144,6 +142,5 @@ int main()
     P.insertar(p7);
     P.insertar(p8);
     P.insertar(p9);
-    P.insertar(p10);
-    imprimirPersona(p1, P);
+    imprimirPersona(p4, P);
 }
