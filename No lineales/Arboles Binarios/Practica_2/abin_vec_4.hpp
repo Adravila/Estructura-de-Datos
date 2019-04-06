@@ -43,7 +43,7 @@ Abin<T>::Abin(size_t maxNodos, const T &e_nulo) : nodos(new T[maxNodos]),
 template <typename T>
 int Abin<T>::profundidad(typename AbinVec<T>::nodo n)
 {
-    return profundidadRec(n, 0, maxNodos - 1);
+    return profundidadRec(n, 0, maxNodos);
 }
 
 template <typename T>
