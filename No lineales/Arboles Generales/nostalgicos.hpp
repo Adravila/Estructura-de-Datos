@@ -1,4 +1,4 @@
-#include "Agen.h"
+#include "Cabeceras/Agen.hpp"
 
 template <typename T>
 int profundidad(const Agen<T>& A, typename Agen<T>::nodo n){

@@ -20,6 +20,11 @@ inline bool operator<(const Persona &p1, const Persona &p2)
     return p1.nombre < p2.nombre;
 }
 
+ostream& operator << (ostream& os, const Persona& p)
+{
+    return os << p.nombre;
+}
+
 template <typename T>
 void imprimirPersona(const T &e, const Abb<T> A)
 {
@@ -120,16 +125,16 @@ int main()
     // con los campos telefono y nombre por ejemplo y acuerdate de sobrecargar
     // los operandos de comparación de la estructura.
 
-    Persona p1("Adrian", "999666444");
-    Persona p2("Joaquin", "9412415512");
-    Persona p3("Maria", "99523523523");
-    Persona p4("Rosa", "9523523561");
-    Persona p5("Pedro", "912415591");
-    Persona p6("Manuel", "9436734721");
-    Persona p7("Raquel", "912414912");
+    Persona p1("Raúl", "999666444");
+    Persona p2("Lorena", "9412415512");
+    Persona p3("Andrés", "99523523523");
+    Persona p4("Penélope", "9523523561");
+    Persona p5("Luis", "912415591");
+    Persona p6("Lucas", "9436734721");
+    Persona p7("Ernesto", "912414912");
     Persona p8("Julio", "956252532");
-    Persona p9("Paco", "76346356");
-    Persona p10("Lolo", "663214525");
+    Persona p9("Rosa", "76346356");
+    Persona p10("Manuel", "663214525");
     Abb<Persona> P;
 
     P.insertar(p1);
@@ -141,5 +146,8 @@ int main()
     P.insertar(p7);
     P.insertar(p8);
     P.insertar(p9);
-    imprimirPersona(p4, P);
+    P.insertar(p10);
+    std::cout << "Árbol de búsqueda resultante: ";
+    ImprimirArbolBusq(P);
+    cout << endl;
 }
