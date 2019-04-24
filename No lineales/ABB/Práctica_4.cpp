@@ -1,4 +1,4 @@
-#include "abb.hpp"
+#include "Cabeceras/abb.hpp"
 #include <algorithm>
 #include <iostream>
 #include <string>
@@ -29,7 +29,7 @@ template <typename T>
 void imprimirPersona(const T &e, const Abb<T> A)
 {
     Abb<Persona> B = A.buscar(e);
-    if (!A.buscar(e).vacio())
+    if (!B.vacio())
     {
         Persona P = B.elemento();
         cout << "Nombre: " << P.nombre << endl;
