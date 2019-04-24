@@ -4,13 +4,13 @@
 #include "Cabeceras/agen_E-S.h"
 #include <math.h>
 
+using namespace std;
+
 /**
  * En este ejercicio vamos a contar cuantos nietos y abuelos son a la vez
  * Creado por: Adrián Dávila Guerra ©
  * 25/04/2019
 **/
-
-using namespace std;
 
 template <typename T>
 bool esAbuelo(typename Agen<T>::nodo n, const Agen<T> &A, int prof)

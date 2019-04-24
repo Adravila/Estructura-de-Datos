@@ -6,7 +6,6 @@
 
 using namespace std;
 
-
 /**
  * Calcular la altura del árbol a partir de la raíz
  * Creado por: Adrián Dávila Guerra ©
