@@ -14,18 +14,18 @@ bool sonDescendientes(typename Abin<T>::nodo n, const Abin<T> &A)
     }
     else
     {
-        bool esCierto = true;
+        bool desciende = true;
         if (A.hijoIzqdoB(n) != Abin<T>::NODO_NULO)
         {
             if (A.elemento(n) >= A.elemento(A.hijoIzqdoB(n)))
-                esCierto = false;
+                desciende = false;
         }
         if (A.hijoDrchoB(n) != Abin<T>::NODO_NULO)
         {
             if (A.elemento(n) >= A.elemento(A.hijoDrchoB(n)))
-                esCierto = false;
+                desciende = false;
         }
-        return esCierto && sonDescendientes(A.hijoIzqdoB(n), A) && sonDescendientes(A.hijoDrchoB(n), A);
+        return desciende && sonDescendientes(A.hijoIzqdoB(n), A) && sonDescendientes(A.hijoDrchoB(n), A);
     }
 }
 template <typename T>
