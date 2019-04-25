@@ -17,7 +17,7 @@ int alturaNodoRec(const Agen<T> &A, typename Agen<T>::nodo n)
 {
     int alturaMax;
     typename Agen<T>::nodo hijo;
-    if (A.hijoIzqdo(n) == Agen<T>::NODO_NULO)
+    if (n == Agen<T>::NODO_NULO)
     {
         return 0;
     }
@@ -37,10 +37,7 @@ int alturaNodoRec(const Agen<T> &A, typename Agen<T>::nodo n)
 template <typename T>
 int alturaNodo(const Agen<T> &A)
 {
-    if (A.arbolVacio())
-        return 0;
-    else
-        return alturaNodoRec(A, A.raiz());
+    return alturaNodoRec(A, A.raiz());
 }
 
 int main()

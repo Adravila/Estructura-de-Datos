@@ -57,6 +57,22 @@ bool RamaIzqd(typename Abin<T>::nodo n, const Abin<T> &A)
 }
 
 template <typename T>
+bool RamaIzqd(typename Abin<T>::nodo n, const Abin<T> &A)
+{
+    if (n == Abin<T>::NODO_NULO)
+        return true;
+    else
+    {
+        bool completo = true;
+        if (A.hijoIzqdoB(n) != Abin<T>::NODO_NULO)
+        {
+           
+        }
+        return completo && RamaIzqd(A.hijoIzqdoB(n), A) && RamaIzqd(A.hijoDrchoB(n), A);
+    }
+}
+
+template <typename T>
 bool RamaDrch(typename Abin<T>::nodo n, const Abin<T> &A)
 {
     if (n == Abin<T>::NODO_NULO)
@@ -84,7 +100,14 @@ bool RamaDrch(typename Abin<T>::nodo n, const Abin<T> &A)
 template <typename T>
 bool esCompleto(typename Abin<T>::nodo n, const Abin<T> &A)
 {
-    return RamaIzqd(A.hijoIzqdoB(n), A) && RamaDrch(A.hijoDrchoB(n), A);
+    if(A.hijoIzqdoB(n) == Abin<T>::NODO_NULO || A.hijoDrchoB(n) == Abin<T>::NODO_NULO)
+    {
+        return false;
+    }
+    else
+    {
+        return RamaIzqd(A.hijoIzqdoB(n), A) && RamaDrch(A.hijoDrchoB(n), A);
+    }
 }
 
 template <typename T>

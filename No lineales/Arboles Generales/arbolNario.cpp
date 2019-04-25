@@ -7,35 +7,13 @@
 using namespace std;
 
 /**
- * Comprobar si todos los nodos del árbol tienen 4 hijos o ninguno
+ * Comprobar si todos los nodos del árbol tienen n hijos o ninguno
  * Creado por: Adrián Dávila Guerra ©
  * 25/04/2019
 **/
 
 template <typename T>
-int numHijos(typename Agen<T>::nodo n, const Agen<T> &A)
-{
-    int nHijos;
-    typename Agen<T>::nodo hijo;
-    if (n == Agen<T>::NODO_NULO)
-    {
-        return 0;
-    }
-    else
-    {
-        nHijos = 0;
-        hijo = A.hijoIzqdo(n);
-        while (hijo != Agen<T>::NODO_NULO)
-        {
-            ++nHijos;
-            hijo = A.hermDrcho(hijo);
-        }
-        return nHijos;
-    }
-}
-
-template <typename T>
-bool esArbolCuaternarioRec(typename Agen<T>::nodo n, const Agen<T> &A)
+bool esArbolnarioRec(typename Agen<T>::nodo n, const Agen<T> &A, int grado)
 {
     int cont;
     typename Agen<T>::nodo hijo;
@@ -49,48 +27,21 @@ bool esArbolCuaternarioRec(typename Agen<T>::nodo n, const Agen<T> &A)
         hijo = A.hijoIzqdo(n);
         while (hijo != Agen<T>::NODO_NULO)
         {
-            if (!esArbolCuaternarioRec(hijo, A))
+            if (!esArbolnarioRec(hijo, A, grado))
             {
                 return false;
             }
             ++cont;
             hijo = A.hermDrcho(hijo);
         }
-        return (cont == 4 || cont == 0);
+        return (cont == grado || cont == 0);
     }
 }
 
 template <typename T>
-bool esArbolCuaternarioRec2(typename Agen<T>::nodo n, const Agen<T> &A)
+bool esArbolnario(const Agen<T> &A, int grado)
 {
-    if (n == Agen<T>::NODO_NULO)
-    {
-        return true;
-    }
-    else
-    {
-        if (numHijos(n, A) == 4 || A.hijoIzqdo(n) == Agen<T>::NODO_NULO)
-        {
-            return esArbolCuaternarioRec2(A.hijoIzqdo(n), A) && esArbolCuaternarioRec2(A.hermDrcho(n), A);
-        }
-        else
-        {
-            return false;
-        }
-    }
-}
-
-template <typename T>
-bool esArbolCuaternario(const Agen<T> &A)
-{
-    if (!A.arbolVacio())
-    {
-        esArbolCuaternarioRec(A.raiz(), A);
-    }
-    else
-    {
-        return false;
-    }
+    return esArbolnarioRec(A.raiz(), A, grado);
 }
 
 int main()
@@ -98,12 +49,12 @@ int main()
     Agen<char> A, B, C, D;
     cout << "\n*** Lectura de árbol general A de agen.dat ***\n";
     ifstream fa("Data/agen.dat"); // abrir fichero de entrada
-    rellenarAgen(fa, A);     // desde fichero
+    rellenarAgen(fa, A);          // desde fichero
     fa.close();
     cout << "\n*** Mostrar árbol general A ***\n";
     imprimirAgen(A); // en std::cout
-    cout << "Este árbol es un árbol estrictamente cuaternario: ";
-    if (esArbolCuaternario(A))
+    cout << "Este árbol es un árbol estrictamente ternario: ";
+    if (esArbolnario(A, 3))
     {
         cout << "SÍ." << endl;
     }
@@ -114,12 +65,12 @@ int main()
 
     cout << "\n*** Lectura de árbol general B de agen-ter.dat ***\n";
     ifstream fb("Data/agen-ter.dat"); // abrir fichero de entrada
-    rellenarAgen(fb, B);         // desde fichero
+    rellenarAgen(fb, B);              // desde fichero
     fb.close();
     cout << "\n*** Mostrar árbol general B ***\n";
     imprimirAgen(B); // en std::cout
-    cout << "Este árbol es un árbol estrictamente cuaternario: ";
-    if (esArbolCuaternario(B))
+    cout << "Este árbol es un árbol estrictamente ternario: ";
+    if (esArbolnario(B, 3))
     {
         cout << "SÍ." << endl;
     }
@@ -130,12 +81,12 @@ int main()
 
     cout << "\n*** Lectura de árbol general C de agen-cua.dat ***\n";
     ifstream fc("Data/agen-cua.dat"); // abrir fichero de entrada
-    rellenarAgen(fc, C);         // desde fichero
+    rellenarAgen(fc, C);              // desde fichero
     fc.close();
     cout << "\n*** Mostrar árbol general C ***\n";
     imprimirAgen(C); // en std::cout
     cout << "Este árbol es un árbol estrictamente cuaternario: ";
-    if (esArbolCuaternario(C))
+    if (esArbolnario(C, 4))
     {
         cout << "SÍ." << endl;
     }
@@ -146,12 +97,12 @@ int main()
 
     cout << "\n*** Lectura de árbol general D de agen-abu.dat ***\n";
     ifstream fd("Data/agen-abu.dat"); // abrir fichero de entrada
-    rellenarAgen(fd, D);         // desde fichero
+    rellenarAgen(fd, D);              // desde fichero
     fd.close();
     cout << "\n*** Mostrar árbol general D ***\n";
     imprimirAgen(D); // en std::cout
-    cout << "Este árbol es un árbol estrictamente cuaternario: ";
-    if (esArbolCuaternario(D))
+    cout << "Este árbol es un árbol estrictamente binario: ";
+    if (esArbolnario(D, 2))
     {
         cout << "SÍ." << endl;
     }
