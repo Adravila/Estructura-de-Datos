@@ -9,7 +9,7 @@ using namespace std;
 /**
  * Contar el número de nodos pares de todo el árbol general
  * Creado por: Adrián Dávila Guerra ©
- * 25/04/2019
+ * 26/04/2019
 **/
 
 template <typename T>
