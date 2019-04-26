@@ -15,7 +15,6 @@ using namespace std;
 template <typename T>
 int alturaNodoRec(const Agen<T> &A, typename Agen<T>::nodo n)
 {
-
     if (n == Agen<T>::NODO_NULO)
     {
         return -1;
