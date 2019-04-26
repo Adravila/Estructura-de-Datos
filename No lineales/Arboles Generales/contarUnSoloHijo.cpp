@@ -8,7 +8,7 @@ using namespace std;
 /**
  * Contar los nodos que tengan un solo hijo de todo el árbol general
  * Creado por: Adrián Dávila Guerra ©
- * 25/04/2019
+ * 26/04/2019
 **/
 
 template <typename T>
