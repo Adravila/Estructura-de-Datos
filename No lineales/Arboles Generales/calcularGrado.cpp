@@ -15,17 +15,19 @@ using namespace std;
 template <typename T>
 int gradoAgenRec(typename Agen<T>::nodo n, const Agen<T> &A)
 {
-    typename Agen<T>::nodo hijo;
-    int gradoMax;
-
     if (n == Agen<T>::NODO_NULO)
     {
         return 0;
     }
     else
     {
+        // Declaración de variables
+        typename Agen<T>::nodo hijo;
+        int gradoMax;
+        // Definición de variables
         gradoMax = 0;
         hijo = A.hijoIzqdo(n);
+
         while (hijo != Agen<T>::NODO_NULO)
         {
             if (n != A.raiz()) // Para evitar que el nodo raíz pase más de una vez

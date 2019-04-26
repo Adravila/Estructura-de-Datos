@@ -15,16 +15,19 @@ using namespace std;
 template <typename T>
 int alturaNodo(const Agen<T> &A, typename Agen<T>::nodo n)
 {
-    int alturaMax;
-    typename Agen<T>::nodo hijo;
     if (n == Agen<T>::NODO_NULO)
     {
         return -1;
     }
     else
     {
+        // Declaración de variables
+        int alturaMax;
+        typename Agen<T>::nodo hijo;
+        // Definición de variables
         alturaMax = 0;
         hijo = A.hijoIzqdo(n);
+        
         while (hijo != Agen<T>::NODO_NULO)
         {
             alturaMax = max(alturaMax, alturaNodo(A, hijo) + 1);
@@ -37,19 +40,22 @@ int alturaNodo(const Agen<T> &A, typename Agen<T>::nodo n)
 template <typename T>
 int alturaMinArbolRec(const Agen<T> &A, typename Agen<T>::nodo n)
 {
-    int alturaMin;
-    typename Agen<T>::nodo hijo;
     if (n == Agen<T>::NODO_NULO)
     {
         return -1;
     }
     else
     {
+        // Declaración de variables
+        int alturaMin;
+        typename Agen<T>::nodo hijo;
+        // Definición de variables
         alturaMin = alturaNodo(A,n);
         hijo = A.hijoIzqdo(n);
+
         while (hijo != Agen<T>::NODO_NULO)
         {
-            alturaMin = min(alturaMin, alturaNodo(A, hijo) + 1);
+            alturaMin = min(alturaMin, alturaMinArbolRec(A, hijo) + 1);
             hijo = A.hermDrcho(hijo);
         }
         return alturaMin;

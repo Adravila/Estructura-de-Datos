@@ -14,15 +14,19 @@ using namespace std;
 template <typename T>
 int contarNodosRec(const Agen<T> &A, typename Agen<T>::nodo n)
 {
-	int cont = 0;
-	typename Agen<T>::nodo hijo;
 	if (n == Agen<T>::NODO_NULO)
 	{
 		return 0;
 	}
 	else
 	{
+		// Declaración de variables
+		int cont;
+		typename Agen<T>::nodo hijo;
+		// Definición de variables
+		cont = 0;
 		hijo = A.hijoIzqdo(n);
+
 		while (hijo != Agen<T>::NODO_NULO)
 		{
 			cont += contarNodosRec(A, hijo);
@@ -33,21 +37,9 @@ int contarNodosRec(const Agen<T> &A, typename Agen<T>::nodo n)
 }
 
 template <typename T>
-int contarNodosRec2(const Agen<T> &A, typename Agen<T>::nodo n)
-{
-	if (n == Agen<T>::NODO_NULO)
-		return 0;
-	else
-		return 1 + contarNodosRec2(A, A.hijoIzqdo(n)) + contarNodosRec2(A, A.hermDrcho(n));
-}
-
-template <typename T>
 int contarNodos(const Agen<T> &A)
 {
-	if (!A.arbolVacio())
-		return contarNodosRec(A, A.raiz());
-	else
-		return 0;
+	return contarNodosRec(A, A.raiz());
 }
 
 int main()

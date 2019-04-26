@@ -11,25 +11,49 @@ using namespace std;
  * Creado por: Adrián Dávila Guerra ©
  * 25/04/2019
 **/
+template <typename T>
+bool esNieto(typename Agen<T>::nodo n, const Agen<T> &A)
+{
+	if (n == Agen<T>::NODO_NULO)
+	{
+		return false;
+	}
+	else
+	{
+		int cont = -1;
+		while (n != Agen<T>::NODO_NULO && cont < 2)
+		{
+			n = A.padre(n);
+			++cont;
+		}
+		return cont == 2;
+	}
+}
 
 template <typename T>
-int contarNietosRec(typename Agen<T>::nodo n, const Agen<T> &A, int prof)
+int contarNietosRec(typename Agen<T>::nodo n, const Agen<T> &A)
 {
-	int cont = 0;
 	if (n == Agen<T>::NODO_NULO)
 	{
 		return 0;
 	}
 	else
 	{
-		if (prof == 2)
+		// Declaración de variables
+		int cont;
+		typename Agen<T>::nodo hijo;
+		// Definición de variables
+		cont = 0;
+		hijo = A.hijoIzqdo(n);
+
+		if (esNieto(n, A))
 		{
 			++cont;
 		}
-		typename Agen<T>::nodo hijo = A.hijoIzqdo(n);
+
 		while (hijo != Agen<T>::NODO_NULO)
 		{
-			cont += contarNietosRec(hijo, A, prof + 1);
+			cont += contarNietosRec(hijo, A);
 			hijo = A.hermDrcho(hijo);
 		}
 		return cont;
@@ -40,7 +64,7 @@ template <typename T>
 int contarNietos(const Agen<T> &A)
 {
 	if (!A.arbolVacio())
-		return contarNietosRec(A.raiz(), A, 0);
+		return contarNietosRec(A.raiz(), A);
 	else
 		return 0;
 }

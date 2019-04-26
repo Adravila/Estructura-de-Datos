@@ -14,30 +14,29 @@ using namespace std;
 template <typename T>
 int contarUnSolosHijoRec(typename Agen<T>::nodo n, const Agen<T> &A)
 {
-	int nNodos = 0;
 	if (n == Agen<T>::NODO_NULO)
 	{
 		return 0;
 	}
 	else
 	{
-		n = A.hijoIzqdo(n);
-		// Comprobamos si el hijo existe y no tiene un hermano derecho
-		if (n != Agen<T>::NODO_NULO)
+		// Declaración de variables
+		int nNodos, contAux;
+		typename Agen<T>::nodo;
+		// Definición de variables
+		nNodos = 0;
+		contAux = 0;
+		hijo = A.hijoIzqdo(n);
+		
+		while (hijo != Agen<T>::NODO_NULO)
 		{
-			typename Agen<T>::nodo hdrcho;
-			hdrcho = A.hermDrcho(n);
-			if (hdrcho == Agen<T>::NODO_NULO)
-			{
-				++nNodos;
-			}
+			++contAux;
+			nNodos += contarUnSolosHijoRec(hijo, A);
+			hijo = A.hermDrcho(hijo);
 		}
-		// Fin de la comprobación
-
-		while (n != Agen<T>::NODO_NULO)
+		if(contAux == 1)
 		{
-			nNodos += contarUnSolosHijoRec(n, A);
-			n = A.hermDrcho(n);
+			++nNodos;
 		}
 		return nNodos;
 	}

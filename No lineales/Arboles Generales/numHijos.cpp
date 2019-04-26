@@ -15,16 +15,19 @@ using namespace std;
 template <typename T>
 int numHijosRec(typename Agen<T>::nodo n, const Agen<T> &A)
 {
-    int nHijos;
-    typename Agen<T>::nodo hijo;
     if (n == Agen<T>::NODO_NULO)
     {
         return 0;
     }
     else
     {
+		// Declaración de variables
+		int nHijos;
+    	typename Agen<T>::nodo hijo;
+		// Definición de variables
         nHijos = 0;
         hijo = A.hijoIzqdo(n);
+
         while (hijo != Agen<T>::NODO_NULO)
         {
             ++nHijos;
