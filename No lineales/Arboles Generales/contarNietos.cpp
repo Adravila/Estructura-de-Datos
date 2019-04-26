@@ -20,7 +20,7 @@ bool esNieto(typename Agen<T>::nodo n, const Agen<T> &A)
 	}
 	else
 	{
-		int cont = -1;
+		int cont = -1; // Inicializar con -1 para evitar contar el propio nodo
 		while (n != Agen<T>::NODO_NULO && cont < 2)
 		{
 			n = A.padre(n);
@@ -63,10 +63,7 @@ int contarNietosRec(typename Agen<T>::nodo n, const Agen<T> &A)
 template <typename T>
 int contarNietos(const Agen<T> &A)
 {
-	if (!A.arbolVacio())
-		return contarNietosRec(A.raiz(), A);
-	else
-		return 0;
+	return contarNietosRec(A.raiz(), A);
 }
 
 int main()
