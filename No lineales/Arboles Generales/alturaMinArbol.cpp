@@ -7,13 +7,13 @@
 using namespace std;
 
 /**
- * Calcular la altura del árbol a partir de la raíz
+ * Calcular la altura mínima del árbol a partir de la raíz
  * Creado por: Adrián Dávila Guerra ©
  * 25/04/2019
 **/
 
 template <typename T>
-int alturaNodoRec(const Agen<T> &A, typename Agen<T>::nodo n)
+int alturaNodo(const Agen<T> &A, typename Agen<T>::nodo n)
 {
     int alturaMax;
     typename Agen<T>::nodo hijo;
@@ -27,7 +27,7 @@ int alturaNodoRec(const Agen<T> &A, typename Agen<T>::nodo n)
         hijo = A.hijoIzqdo(n);
         while (hijo != Agen<T>::NODO_NULO)
         {
-            alturaMax = max(alturaMax, alturaNodoRec(A, hijo) + 1);
+            alturaMax = max(alturaMax, alturaNodo(A, hijo) + 1);
             hijo = A.hermDrcho(hijo);
         }
         return alturaMax;
@@ -35,9 +35,32 @@ int alturaNodoRec(const Agen<T> &A, typename Agen<T>::nodo n)
 }
 
 template <typename T>
-int alturaNodo(const Agen<T> &A)
+int alturaMinArbolRec(const Agen<T> &A, typename Agen<T>::nodo n)
 {
-    return alturaNodoRec(A, A.raiz());
+    int alturaMin;
+    typename Agen<T>::nodo hijo;
+    if (n == Agen<T>::NODO_NULO)
+    {
+        return -1;
+    }
+    else
+    {
+        alturaMin = alturaNodo(A,n);
+        hijo = A.hijoIzqdo(n);
+        while (hijo != Agen<T>::NODO_NULO)
+        {
+            alturaMin = min(alturaMin, alturaNodo(A, hijo) + 1);
+            hijo = A.hermDrcho(hijo);
+        }
+        return alturaMin;
+    }
+}
+
+
+template <typename T>
+int alturaMinArbol(const Agen<T> &A)
+{
+    return alturaMinArbolRec(A, A.raiz());
 }
 
 int main()
@@ -49,7 +72,7 @@ int main()
     fa.close();
     cout << "\n*** Mostrar árbol general A ***\n";
     imprimirAgen(A); // en std::cout
-    cout << "\nAltura del árbol A 'agen': " << alturaNodo(A) << endl;
+    cout << "\nAltura del árbol A 'agen': " << alturaMinArbol(A) << endl;
 
     cout << "\n*** Lectura de árbol general B de agen-ter.dat ***\n";
     ifstream fb("Data/agen-ter.dat"); // abrir fichero de entrada
@@ -57,7 +80,7 @@ int main()
     fb.close();
     cout << "\n*** Mostrar árbol general B ***\n";
     imprimirAgen(B); // en std::cout
-    cout << "\nAltura del árbol B 'agen-ter': " << alturaNodo(B) << endl;
+    cout << "\nAltura del árbol B 'agen-ter': " << alturaMinArbol(B) << endl;
 
     cout << "\n*** Lectura de árbol general C de agen-cua.dat ***\n";
     ifstream fc("Data/agen-cua.dat"); // abrir fichero de entrada
@@ -65,7 +88,7 @@ int main()
     fc.close();
     cout << "\n*** Mostrar árbol general C ***\n";
     imprimirAgen(C); // en std::cout
-    cout << "\nAltura del árbol C 'agen-cua': " << alturaNodo(C) << endl;
+    cout << "\nAltura del árbol C 'agen-cua': " << alturaMinArbol(C) << endl;
 
     cout << "\n*** Lectura de árbol general D de agen-abu.dat ***\n";
     ifstream fd("Data/agen-abu.dat"); // abrir fichero de entrada
@@ -73,5 +96,5 @@ int main()
     fd.close();
     cout << "\n*** Mostrar árbol general D ***\n";
     imprimirAgen(D); // en std::cout
-    cout << "\nAltura del árbol D 'agen-abu': " << alturaNodo(D) << endl;
+    cout << "\nAltura del árbol D 'agen-abu': " << alturaMinArbol(D) << endl;
 }
