@@ -44,10 +44,7 @@ int gradoAgenRec(typename Agen<T>::nodo n, const Agen<T> &A)
 template <typename T>
 int gradoAgen(const Agen<T> &A)
 {
-    if (A.arbolVacio())
-        return 0;
-    else
-        return gradoAgenRec(A.raiz(), A);
+    return gradoAgenRec(A.raiz(), A);
 }
 
 int main()
