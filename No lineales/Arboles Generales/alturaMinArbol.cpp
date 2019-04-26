@@ -62,7 +62,6 @@ int alturaMinArbolRec(const Agen<T> &A, typename Agen<T>::nodo n)
     }
 }
 
-
 template <typename T>
 int alturaMinArbol(const Agen<T> &A)
 {
