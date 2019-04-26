@@ -21,19 +21,19 @@ int numHijosRec(typename Agen<T>::nodo n, const Agen<T> &A)
     }
     else
     {
-		// Declaración de variables
-		int nHijos;
-    	typename Agen<T>::nodo hijo;
-		// Definición de variables
-        nHijos = 0;
-        hijo = A.hijoIzqdo(n);
+	    // Declaración de variables
+	    int nHijos;
+	    typename Agen<T>::nodo hijo;
+	    // Definición de variables
+	    nHijos = 0;
+	    hijo = A.hijoIzqdo(n);
 
-        while (hijo != Agen<T>::NODO_NULO)
-        {
-            ++nHijos;
-            hijo = A.hermDrcho(hijo);
-        }
-        return nHijos;
+	    while (hijo != Agen<T>::NODO_NULO)
+	    {
+		    ++nHijos;
+		    hijo = A.hermDrcho(hijo);
+	    }
+	    return nHijos;
     }
 }
 
