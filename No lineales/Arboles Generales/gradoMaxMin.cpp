@@ -15,16 +15,19 @@ using namespace std;
 template <typename T>
 int numHijos(typename Agen<T>::nodo n, const Agen<T> &A)
 {
-    int nHijos;
-    typename Agen<T>::nodo hijo;
     if (n == Agen<T>::NODO_NULO)
     {
         return 0;
     }
     else
     {
+        // Declaración de variables
+        int nHijos;
+        typename Agen<T>::nodo hijo;
+        // Definición de variables
         nHijos = 0;
         hijo = A.hijoIzqdo(n);
+
         while (hijo != Agen<T>::NODO_NULO)
         {
             ++nHijos;
@@ -37,11 +40,12 @@ int numHijos(typename Agen<T>::nodo n, const Agen<T> &A)
 template <typename T>
 void gradoMinMaxRec(typename Agen<T>::nodo n, const Agen<T> &A, int gMax, int gMin)
 {
-    typename Agen<T>::nodo hijo;
     if (n != Agen<T>::NODO_NULO)
     {
+        typename Agen<T>::nodo hijo;
         gMin = gMax = numHijos(n, A);
         hijo = A.hijoIzqdo(n);
+
         while (hijo != Agen<T>::NODO_NULO)
         {
             gMax = max(numHijos(hijo, A), gMax);
@@ -63,6 +67,10 @@ void gradoMinMax(const Agen<T> &A)
     {
         gradoMinMaxRec(A.raiz(), A, 0, 0);
     }
+    else
+    {
+        cout << "El árbol está vacío, no se puede determinar su grado." << endl;
+    }   
 }
 
 int main()

@@ -17,15 +17,14 @@ void eliminarDescendientes(typename Agen<T>::nodo n, Agen<T> &A)
 {
     if (n != Agen<T>::NODO_NULO)
     {
-        if (A.hijoIzqdo(n) != Agen<T>::NODO_NULO)
+        typename Agen<T>::nodo hijo;
+        hijo = A.hijoIzqdo(n);
+        
+        while (hijo != Agen<T>::NODO_NULO)
         {
-            typename Agen<T>::nodo hijo = A.hijoIzqdo(n);
-            while (hijo != Agen<T>::NODO_NULO)
-            {
-                eliminarDescendientes(hijo,A);
-                A.eliminarHijoIzqdo(n);
-                hijo = A.hermDrcho(hijo);
-            }
+            eliminarDescendientes(hijo, A);
+            hijo = A.hermDrcho(hijo);
+            A.eliminarHijoIzqdo(n);
         }
     }
 }
@@ -53,18 +52,38 @@ typename Agen<T>::nodo buscarNodoAgen(typename Agen<T>::nodo n, const Agen<T> &A
 }
 
 template <typename T>
-void podarArbol(Agen<T> &A, const T& elto)
+void podarArbol(Agen<T> &A, const T &elto)
 {
     typename Agen<T>::nodo aux = buscarNodoAgen(A.raiz(), A, elto);
-    if(aux != Agen<T>::NODO_NULO)
+    typename Agen<T>::nodo elim;
+    if (aux != Agen<T>::NODO_NULO)
     {
+        // Eliminar descendientes del nodo encontrado
         eliminarDescendientes(aux, A);
+        // En este proceso tendremos que eliminar el nodo desde otro, es decir, empezando desde el hijo izquierdo de su padre
+        elim = A.hijoIzqdo(A.padre(aux));
+        // Si el nodo a eliminar es el hijo izquierdo
+        if (elim != Agen<T>::NODO_NULO || A.elemento(aux) == A.elemento(elim))
+        {
+            A.eliminarHijoIzqdo(A.padre(aux));
+        }
+        // Si el nodo a eliminar es el hijo
+        while (elim != Agen<T>::NODO_NULO)
+        {
+            if (A.hermDrcho(elim) != Agen<T>::NODO_NULO)
+            {
+                if (A.elemento(aux) == A.elemento(A.hermDrcho(elim)))
+                {
+                    A.eliminarHermDrcho(elim);
+                }
+            }
+            elim = A.hermDrcho(elim);
+        }
     }
     else
     {
         cout << "No se ha encontrado un elemento del árbol para podar" << endl;
     }
-    
 }
 
 int main()
@@ -76,7 +95,8 @@ int main()
     fa.close();
     cout << "\n*** Mostrar árbol general A ***\n";
     imprimirAgen(A); // en std::cout
-    podarArbol(A,'n');
-    cout << endl << "Arbol modificado: " << endl;
+    podarArbol(A, 'g');
+    cout << endl
+         << "Arbol modificado: " << endl;
     imprimirAgen(A); // en std::cout
 }

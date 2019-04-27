@@ -25,11 +25,15 @@ bool esAbuelo(typename Agen<T>::nodo n, const Agen<T> &A, int prof)
         {
             if (esAbuelo(hijo, A, prof + 1))
             {
+                // Puede dar tres casos:
+                // 1. Que el nodo es nulo (línea 20) y por tanto es falso, no entra en la condición
+                // 2. Que el nodo es válido (línea 36) pero no tiene la altura para ser 'abuelo'
+                // 3. Que el nodo es válido (línea 36) pero tiene la altura exacta para ser 'abuelo'
                 return true;
             }
             hijo = A.hermDrcho(hijo);
         }
-        return (prof >= 2);
+        return (prof == 2);
     }
 }
 
@@ -68,7 +72,7 @@ int main()
     cout << "\n*** Mostrar árbol general A ***\n";
     imprimirAgen(A);
     cout << "Este árbol tiene un nieto y a su vez es abuelo: ";
-    if (esNietoAbuelo(A.hermDrcho(A.hijoIzqdo(A.hijoIzqdo(A.raiz()))), A))
+    if (esNietoAbuelo(A.raiz(), A))
     {
         cout << "SÍ." << endl;
     }

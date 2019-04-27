@@ -7,46 +7,42 @@
 using namespace std;
 
 /**
- * Calcular el grado de todo el árbol general
+ * Contar los nodos que tienen n nietos de todo el árbol
  * Creado por: Adrián Dávila Guerra ©
- * 25/04/2019
+ * 27/04/2019
 **/
 
-// Alternativa
-
 template <typename T>
-int gradoAgenRec2(typename Agen<T>::nodo n, const Agen<T> &A)
+int numNietos(typename Agen<T>::nodo n, const Agen<T> &A, int prof)
 {
     if (n == Agen<T>::NODO_NULO)
     {
-        return 0;
+        return false;
     }
     else
     {
-        // Declaración de variables
         typename Agen<T>::nodo hijo;
-        int gradoMax;
-        // Definición de variables
-        gradoMax = 0;
+        int cont;
+
+        cont = 0;
         hijo = A.hijoIzqdo(n);
+
+        if(prof == 2)
+        {
+            ++cont;
+        }
 
         while (hijo != Agen<T>::NODO_NULO)
         {
-            if (n != A.raiz()) // Para evitar que el nodo raíz pase más de una vez
-            {
-                ++gradoMax;
-            }
-            gradoMax = std::max(gradoMax, gradoAgenRec(hijo, A));
+            cont += numNietos(hijo,A,prof+1);
             hijo = A.hermDrcho(hijo);
         }
-        return gradoMax;
+        return cont;
     }
 }
 
-// Método principal
-
 template <typename T>
-int numHijos(typename Agen<T>::nodo n, const Agen<T> &A)
+int contarNumNietosRec(typename Agen<T>::nodo n, const Agen<T> &A, int grado)
 {
     if (n == Agen<T>::NODO_NULO)
     {
@@ -54,51 +50,27 @@ int numHijos(typename Agen<T>::nodo n, const Agen<T> &A)
     }
     else
     {
-	    // Declaración de variables
-	    int nHijos;
-	    typename Agen<T>::nodo hijo;
-	    // Definición de variables
-	    nHijos = 0;
-	    hijo = A.hijoIzqdo(n);
+        int cont = 0;
+        typename Agen<T>::nodo hijo = A.hijoIzqdo(n);
 
-	    while (hijo != Agen<T>::NODO_NULO)
-	    {
-		    ++nHijos;
-		    hijo = A.hermDrcho(hijo);
-	    }
-	    return nHijos;
-    }
-}
-
-template <typename T>
-int gradoAgenRec(typename Agen<T>::nodo n, const Agen<T> &A)
-{
-    if (n == Agen<T>::NODO_NULO)
-    {
-        return 0;
-    }
-    else
-    {
-        // Declaración de variables
-        typename Agen<T>::nodo hijo;
-        int gradoMax;
-        // Definición de variables
-        gradoMax = numHijos(n,A);
-        hijo = A.hijoIzqdo(n);
-
+        if (numNietos(n, A, 0) == grado)
+        {
+            cout << A.elemento(n);
+            ++cont;
+        }
         while (hijo != Agen<T>::NODO_NULO)
         {
-            gradoMax = std::max(gradoMax, gradoAgenRec(hijo, A));
+            cont += contarNumNietosRec(hijo, A, grado);
             hijo = A.hermDrcho(hijo);
         }
-        return gradoMax;
+        return cont;
     }
 }
 
 template <typename T>
-int gradoAgen(const Agen<T> &A)
+int contarNumNietos(const Agen<T> &A, int grado)
 {
-    return gradoAgenRec(A.raiz(), A);
+    return contarNumNietosRec(A.raiz(), A, grado);
 }
 
 int main()
@@ -110,7 +82,7 @@ int main()
     fa.close();
     cout << "\n*** Mostrar árbol general A ***\n";
     imprimirAgen(A); // en std::cout
-    cout << "\nCalcular grado del árbol A 'agen': " << gradoAgen(A) << endl;
+    cout << "\nCantidad de nodos que son abuelos y nietos en el árbol A 'agen': " << contarNumNietos(A,3) << endl;
 
     cout << "\n*** Lectura de árbol general B de agen-ter.dat ***\n";
     ifstream fb("Data/agen-ter.dat"); // abrir fichero de entrada
@@ -118,7 +90,7 @@ int main()
     fb.close();
     cout << "\n*** Mostrar árbol general B ***\n";
     imprimirAgen(B); // en std::cout
-    cout << "\nCalcular grado del árbol B 'agen-ter': " << gradoAgen(B) << endl;
+    cout << "\nCantidad de nodos que son abuelos y nietos en el árbol B 'agen-ter': " << contarNumNietos(B,6) << endl;
 
     cout << "\n*** Lectura de árbol general C de agen-cua.dat ***\n";
     ifstream fc("Data/agen-cua.dat"); // abrir fichero de entrada
@@ -126,7 +98,7 @@ int main()
     fc.close();
     cout << "\n*** Mostrar árbol general C ***\n";
     imprimirAgen(C); // en std::cout
-    cout << "\nCalcular grado del árbol C 'agen-cua': " << gradoAgen(C) << endl;
+    cout << "\nCantidad de nodos que son abuelos y nietos en el árbol C 'agen-cua': " << contarNumNietos(C,8) << endl;
 
     cout << "\n*** Lectura de árbol general D de agen-abu.dat ***\n";
     ifstream fd("Data/agen-abu.dat"); // abrir fichero de entrada
@@ -134,5 +106,5 @@ int main()
     fd.close();
     cout << "\n*** Mostrar árbol general D ***\n";
     imprimirAgen(D); // en std::cout
-    cout << "\nCalcular grado del árbol D 'agen-abu': " << gradoAgen(D) << endl;
+    cout << "\nCantidad de nodos que son abuelos y nietos en el árbol D 'agen-abu': " << contarNumNietos(D,3) << endl;
 }
