@@ -13,37 +13,29 @@ using namespace std;
 **/
 
 template <typename T>
-int numHijos(const Agen<T> &A, typename Agen<T>::nodo n)
-{
-    typename Agen<T>::nodo hijo;
-    int cont;
-    if (n == Agen<T>::NODO_NULO)
-        return 0;
-    else
-    {
-        cont = 0;
-        hijo = A.hijoIzqdo(n);
-        while (hijo != Agen<T>::NODO_NULO)
-        {
-            cont++;
-            hijo = A.hermDrcho(hijo);
-        }
-        return cont;
-    }
-}
-
-template <typename T>
 int gradoArbol(const Agen<T> &A, typename Agen<T>::nodo n)
 {
-    typename Agen<T>::nodo hijo;
-    hijo = A.hijoIzqdo(n);
-    int Maxhijos = 0;
     if (n == Agen<T>::NODO_NULO)
         return 0;
     else
-    {
-        Maxhijos = numHijos(A, n);
+    {       
+        // Declaración de variables
+        typename Agen<T>::nodo hijo;
+        int Maxhijos;
+        // Definición de variables
         hijo = A.hijoIzqdo(n);
+        Maxhijos = 0;
+
+        // Contar hijos
+        while (hijo != Agen<T>::NODO_NULO)
+        {
+            ++Maxhijos;
+            hijo = A.hermDrcho(hijo);
+        }
+
+        hijo = A.hijoIzqdo(n);
+
+        // Obtener el grado
         while (hijo != Agen<T>::NODO_NULO)
         {
             Maxhijos = max(Maxhijos, gradoArbol(A, hijo));
@@ -56,13 +48,17 @@ int gradoArbol(const Agen<T> &A, typename Agen<T>::nodo n)
 template <typename T>
 int numNodosHoja(const Agen<T> &A, typename Agen<T>::nodo n)
 {
-    typename Agen<T>::nodo hijo;
-    int cont = 0;
     if (n == Agen<T>::NODO_NULO)
         return 0;
     else
     {
+        // Declaración de variables
+        typename Agen<T>::nodo hijo;
+        int cont;
+        // Definición de variables
         hijo = A.hijoIzqdo(n);
+        cont = 0;
+        
         if (hijo == Agen<T>::NODO_NULO)
         {
             ++cont;

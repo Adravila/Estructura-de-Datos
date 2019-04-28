@@ -5,7 +5,7 @@
 
 //Devuelve el mínimo, A es un árbol no vacío
 template <typename T>
-T minimo(const Abb<T> &A)
+int minimo(const Abb<T> &A)
 {
 	if (A.izqdo().vacio())
     {
@@ -19,7 +19,7 @@ T minimo(const Abb<T> &A)
 
 //Devuelve el máximo, A es un árbol no vacío
 template <typename T>
-T maximo(const Abb<T> &A)
+int maximo(const Abb<T> &A)
 {
 	if (A.drcho().vacio())
     {
@@ -34,29 +34,34 @@ T maximo(const Abb<T> &A)
 template <typename T>
 int infimo(const Abb<T> &A, int x)
 {
-    //elemento IGUAL
+    // Si el árbol está vacío
+    if(A.vacio())
+    {
+        return 0;
+    }
+    // elemento IGUAL
 	if (A.elemento() == x)
     {
 		return A.elemento();
     }
-    //elemento MENOR
+    // elemento MENOR
 	else if (A.elemento() < x)
 	{
 		if (A.drcho().vacio() || (minimo(A.drcho()) > x))
         {
-			return A.elemento();
+			return minimo(A);
         }
 		else
         {
 			return infimo(A.drcho(), x);
         }
 	}
-    //elemento MAYOR
+    // elemento MAYOR
 	else
 	{
 		if (A.izqdo().vacio() || (minimo(A.izqdo()) > x))
         {
-  			return minimo(A);          
+  			return A.elemento();          
         }
 		else
         {
@@ -68,12 +73,17 @@ int infimo(const Abb<T> &A, int x)
 template <typename T>
 int supremo(const Abb<T> &A, int x)
 {
-    //elemento IGUAL
+    // Si el árbol está vacío
+    if(A.vacio())
+    {
+        return 0;
+    }
+    // elemento IGUAL
 	if (A.elemento() == x)
     {
 		return A.elemento();
     }
-    //elemento MENOR
+    // elemento MENOR
 	else if (A.elemento() < x)
 	{
 		if (A.drcho().vacio() || (minimo(A.drcho()) < x))
@@ -85,7 +95,7 @@ int supremo(const Abb<T> &A, int x)
 			return supremo(A.drcho(), x);
         }
 	}
-    //elemento MAYOR
+    // elemento MAYOR
 	else
 	{
 		if (A.izqdo().vacio() || (maximo(A.izqdo()) < x))
@@ -113,18 +123,24 @@ void ImprimirArbolBusq(const Abb<T> A)
 int main()
 {
     Abb<int> A;
-    A.insertar(7);
-    A.insertar(5);
-    A.insertar(12);
-    A.insertar(9);
-    A.insertar(17);
-    A.insertar(8);
-    A.insertar(11);
-    A.insertar(10);
+    A.insertar(83);
+    A.insertar(25);
+    A.insertar(80);
+    A.insertar(30);
+    A.insertar(15);
+    A.insertar(24);
+    A.insertar(60);
+    A.insertar(70);
+    A.insertar(18);
+    A.insertar(3);
+    A.insertar(99);
+    A.insertar(161);
+    A.insertar(130);
+    A.insertar(131);
 
     std::cout << "Imprimir árbol: ";
     ImprimirArbolBusq(A);
     std::cout << std::endl;
-	cout << "Supremo del árbol: " << supremo(A,9) << endl;
-	cout << "Ínfimo del árbol: " << infimo(A,9) << endl;
+	cout << "Supremo del árbol: " << supremo(A,76) << endl;
+	cout << "Ínfimo del árbol: " << infimo(A,76) << endl;
 }

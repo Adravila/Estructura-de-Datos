@@ -46,31 +46,6 @@ int gradoAgenRec2(typename Agen<T>::nodo n, const Agen<T> &A)
 // Método principal
 
 template <typename T>
-int numHijos(typename Agen<T>::nodo n, const Agen<T> &A)
-{
-    if (n == Agen<T>::NODO_NULO)
-    {
-        return 0;
-    }
-    else
-    {
-	    // Declaración de variables
-	    int nHijos;
-	    typename Agen<T>::nodo hijo;
-	    // Definición de variables
-	    nHijos = 0;
-	    hijo = A.hijoIzqdo(n);
-
-	    while (hijo != Agen<T>::NODO_NULO)
-	    {
-		    ++nHijos;
-		    hijo = A.hermDrcho(hijo);
-	    }
-	    return nHijos;
-    }
-}
-
-template <typename T>
 int gradoAgenRec(typename Agen<T>::nodo n, const Agen<T> &A)
 {
     if (n == Agen<T>::NODO_NULO)
@@ -83,7 +58,16 @@ int gradoAgenRec(typename Agen<T>::nodo n, const Agen<T> &A)
         typename Agen<T>::nodo hijo;
         int gradoMax;
         // Definición de variables
-        gradoMax = numHijos(n,A);
+        gradoMax = 0;
+        hijo = A.hijoIzqdo(n);
+
+        // Contar hijos
+        while (hijo != Agen<T>::NODO_NULO)
+        {
+            ++gradoMax;
+            hijo = A.hermDrcho(hijo);
+        }
+        
         hijo = A.hijoIzqdo(n);
 
         while (hijo != Agen<T>::NODO_NULO)

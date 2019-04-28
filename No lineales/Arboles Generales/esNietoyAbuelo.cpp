@@ -52,14 +52,7 @@ bool esNieto(typename Agen<T>::nodo n, const Agen<T> &A)
 template <typename T>
 bool esNietoAbuelo(typename Agen<T>::nodo n, const Agen<T> &A)
 {
-    if (!A.arbolVacio())
-    {
-        return esAbuelo(n, A, 0) && esNieto(n, A);
-    }
-    else
-    {
-        return false;
-    }
+    return esAbuelo(n, A, 0) && esNieto(n, A);
 }
 
 int main()

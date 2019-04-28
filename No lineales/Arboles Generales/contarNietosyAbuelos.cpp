@@ -31,7 +31,7 @@ bool esAbuelo(typename Agen<T>::nodo n, const Agen<T> &A, int prof)
             }
             hijo = A.hermDrcho(hijo);
         }
-        return (prof >= 2);
+        return (prof == 2);
     }
 }
 

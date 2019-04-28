@@ -33,9 +33,8 @@ void imprimirPersona(const T &e, const Abb<T> A)
     Abb<Persona> B = A.buscar(e);
     if (!B.vacio())
     {
-        Persona P = B.elemento();
-        cout << "Nombre: " << P.nombre << endl;
-        cout << "Telefono: " << P.telefono << endl;
+        cout << "Nombre: " << B.elemento().nombre << endl;
+        cout << "Telefono: " << B.elemento().telefono << endl;
     }
     else
     {
