@@ -86,7 +86,7 @@ int supremo(const Abb<T> &A, int x)
     // elemento MENOR
 	else if (A.elemento() < x)
 	{
-		if (A.drcho().vacio() || (minimo(A.drcho()) < x))
+		if (A.drcho().vacio() || (maximo(A.drcho()) < x))
         {
 			return maximo(A);
         }
@@ -141,6 +141,6 @@ int main()
     std::cout << "Imprimir árbol: ";
     ImprimirArbolBusq(A);
     std::cout << std::endl;
-	cout << "Supremo del árbol: " << supremo(A,76) << endl;
-	cout << "Ínfimo del árbol: " << infimo(A,76) << endl;
+	cout << "Supremo del árbol: " << supremo(A,87) << endl;
+	cout << "Ínfimo del árbol: " << infimo(A,87) << endl;
 }
