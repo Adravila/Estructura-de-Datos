@@ -111,7 +111,7 @@ int main()
     D.insertarPalabra(p9);
     D.insertarPalabra(p10);
     D.cambiarPalabra(p10, "Nueva Palabra");
-    cout << "\n\nDatos de p10\n"; // J se traduce a 10
+    cout << "\n\nDatos de p10\n"; // J se traduce a 'Nueva palabra'
     D.ImprimirPalabras(p10);
     cout << endl;
 }
