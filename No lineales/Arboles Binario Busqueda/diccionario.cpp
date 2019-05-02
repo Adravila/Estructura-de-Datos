@@ -89,16 +89,16 @@ void Diccionario::ImprimirPalabras(const Palabra &e)
 
 int main()
 {
-    Palabra p1("A", "1");
-    Palabra p2("B", "2");
-    Palabra p3("C", "3");
-    Palabra p4("D", "4");
-    Palabra p5("E", "5");
-    Palabra p6("F", "6");
-    Palabra p7("G", "7");
-    Palabra p8("H", "8");
-    Palabra p9("I", "9");
-    Palabra p10("J", "10");
+    Palabra p1("Aprobar", "Suspender");
+    Palabra p2("Triunfo", "Desastre");
+    Palabra p3("Victoria", "Derrota");
+    Palabra p4("EDNL", "SUSPENSO CON MAYÚSCULAS");
+    Palabra p5("AEED", "SUSPENSO CON MAYÚSCULAS VERSIÓN 2");
+    Palabra p6("PCTR", "Ni lo quieras saber");
+    Palabra p7("Hola", "Adiós");
+    Palabra p8("Hoy no", "Mañana");
+    Palabra p9("Sí", "No");
+    Palabra p10("España", "Zuelandia");
     Diccionario D;
     D.insertarPalabra(p1);
     D.insertarPalabra(p2);
@@ -111,7 +111,9 @@ int main()
     D.insertarPalabra(p9);
     D.insertarPalabra(p10);
     D.cambiarPalabra(p10, "Nueva Palabra");
-    cout << "\n\nDatos de p10\n"; // J se traduce a 'Nueva palabra'
     D.ImprimirPalabras(p10);
-    cout << endl;
+    D.ImprimirPalabras(p4);
+    D.ImprimirPalabras(p6);
+    D.EliminarPalabra(p7);
+    D.ImprimirPalabras(p7);
 }
