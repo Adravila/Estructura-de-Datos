@@ -14,14 +14,16 @@ template <typename tCoste>
 GrafoP<tCoste> zuelandia(GrafoP<tCoste> &G, vector<bool> ciudadesTomadas,
                          matriz<bool> carreterasTomadas, typename GrafoP<tCoste>::vertice capital)
 {
-    typedef typename GrafoP<tCoste>::vertice vertice;
+    typedef typename GrafoP<tCoste>::vertice vertice;   // vértice
+    int n = G.numVert();    // número de vértices
+    GrafoP<tCoste> sol(n);  // Grafo ponderado solución
 
     // Reflejar en G ciudades tomadas por los rebeldes
-    for (vertice i = 0; i < G.numVert(); ++i)
+    for (vertice i = 0; i < n; ++i)
     {
         if (ciudadesTomadas[i])
         {
-            for (vertice v = 0; v < G.numVert(); ++v)
+            for (vertice v = 0; v < n; ++v)
             {
                 G[i][v] = GrafoP<tCoste>::INFINITO;
                 G[v][i] = GrafoP<tCoste>::INFINITO;
@@ -30,28 +32,31 @@ GrafoP<tCoste> zuelandia(GrafoP<tCoste> &G, vector<bool> ciudadesTomadas,
     }
 
     // Reflejar en G las carreteras que han sido cortadas por los rebeldes
-    for (vertice v = 0; v < G.numVert(); ++v)
+    for (vertice v = 0; v < n; ++v)
     {
-        for (vertice w = 0; w < G.numVert(); ++w)
+        for (vertice w = 0; w < n; ++w)
         {
             if (carreterasTomadas[v][w])
                 G[v][w] = GrafoP<tCoste>::INFINITO;
         }
     }
 
-    // Bonus: Si no tuvieramos en cuenta la ciudad capital se podría
-    // matriz<vertice> Camino(G.numVert());
+    // Bonus: Si no tuvieramos en cuenta la ciudad capital podremos recorrer libremente
+    // las distintas ciudades sin ningún impedimento, por lo que no necesitaríamos
+    // hacer DijkstraInv y Dijkstra dado de que no hay ningún destino en concreto
+
+    // matriz<vertice> Camino(n);
     // return Floyd(G,Camino);
-    
+
     vector<GrafoP<int>::vertice> PDisj, PInv;
     vector<tCoste> CMHastacapital = DijkstraInv(G, capital, PInv);
     vector<tCoste> CMDesdecapital = Dijkstra(G, capital, PDisj);
 
-    GrafoP<tCoste> sol(G.numVert());
-    
-    for (size_t i = 0; i < G.numVert(); i++) {
-        for (size_t j = 0; j < G.numVert(); j++) {
-            if(i == j)
+    for (size_t i = 0; i < n; i++)
+    {
+        for (size_t j = 0; j < n; j++)
+        {
+            if (i == j)
                 sol[i][j] = 0;
             else
                 sol[i][j] = suma(CMHastacapital[i], CMDesdecapital[j]);
