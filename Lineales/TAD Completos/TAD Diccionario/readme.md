@@ -4,4 +4,4 @@ Crear un diccionario inglés-español, en que la palabra inglesa puede tener var
 - Insertar traducción español de una palabra inglesa
 - Eliminar traducción español a inglés
 - Consultar TODAS las traducciones al español de una inglesa
-- Nota: se puede usar la bilbioteca string.h
+- Nota: se puede usar la biblioteca string.h
