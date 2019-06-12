@@ -1,0 +1,58 @@
+3. 
+Disjtrack poruqe se inicia desde UN origen
+Para los subveciones (de gastos mínimos) lo almacenamos a un vector
+Costes minimos - %
+Empezar desde el más barato hasta se acabe la cantidad
+
+4. Considerar el viaje de ida y de vuelta
+Disjtrak y Distrakinv (en ese orden)
+-> Desde la capital, hacer disjtrak, paso intermediario (multiplicar? y sumar) , hacer distrak inv hacia la capital
+
+5. 
+Cadiz - sanfernando 1,4 (coste minimo) bus
+		    1,6 tren
+Disjtrak 
+vector de boolean (devuelve)
+simplemente hay que llegar (si tienes dinero para llegar true o false)
+
+6. 
+Entender cómo se puede viajar (recomendación)
+1. Todo el viaje en tren
+2. Todo el viaje en bus
+3. TREN InvDisj --> CAMBIO --> BUS Disj
+4. BUS InvDisj --> CAMBIO --> TREN Disj
+
+Floyd 1 y 2
+¿Para 3 y 4? Floyd ya lo ha hecho TODO
+
+De esas 4 opciones nos quedamos con el más barato
+
+7.
+	
+1. ORIGEN -- T -- CAMBIO 1 -B- DESTINO
+2- ORIGEN -- CAMBIO 2 -B- DESTINO
+
+disj -- SUMA --- InvD
+
+8. 
+1. tren
+2. bus
+3. origen disj  --BUS [][] TREN -- disjinv -- DESTINO
+4. origen disj  --TREN [][] BUS -- disjinv -- DESTINO
+
+Sol: floyd ?
+
+9.
+4 viajes
+2 Disjk
+
+10. Es identico
+3 disjtras
+y 9 viajes
+
+11. en papel
+
+12. en papel
+
+13. 
+Buscar el mínimo de puentes 2 (quitar cualquiera de las dos)
