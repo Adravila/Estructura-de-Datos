@@ -33,27 +33,27 @@ Funcion::Funcion(double cord) {
 
 void Funcion::insertar(const Escalon& e) {
 	typename Lista<Escalon>::posicion x = L1.primera();
-	bool encontrado == false;
+	bool encontrado = false;
 	while(x != L1.fin() && encontrado == false) {
 		if(x == L1.primera() && e.cx < L1.elemento(x).cx) {
 			cout << "No existe funcion en el punto." << endl;
-			encontrado == true;
+			encontrado = true;
 		}
-		if(e.cx < L1.elemento(x).cx){
+		else if(e.cx < L1.elemento(x).cx){
 			L1.insertar(e, x);
-			encontrado == true;
+			encontrado = true;
 		}
 		else if(e.cx == L1.elemento(x).cx) {
 				L1.elemento(x).cy = e.cy;
-				encontrado == true;
+				encontrado = true;
 		}
 		else if(e.cx > L1.elemento(x).cx) {
 			L1.insertar(e, L1.anterior(x));
-			encontrado == true;
+			encontrado = true;
 		}
 		else if(L1.siguiente(x) == L1.fin()) {
 			L1.insertar(e, L1.siguiente(x));
-			encontrado == true;
+			encontrado = true;
 		}
 		x = L1.siguiente(x);
 	}
