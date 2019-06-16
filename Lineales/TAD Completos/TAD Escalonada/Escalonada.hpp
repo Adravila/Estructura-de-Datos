@@ -39,7 +39,7 @@ void Funcion::insertar(const Escalon& e) {
 			cout << "No existe funcion en el punto." << endl;
 			encontrado = true;
 		}
-		if(e.cx < L1.elemento(x).cx){
+		else if(e.cx < L1.elemento(x).cx){
 			L1.insertar(e, x);
 			encontrado = true;
 		}
