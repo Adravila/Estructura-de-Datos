@@ -104,7 +104,7 @@ void Cintas::descargarPaquete()
             L.elemento(pos_paq) = N;
             C = N;
             pos_paq = ((Lista<tPaquete>::posicion)(int)(tam / 2));
-            cout << "Extraer paquete de la maquinaria extrema izquierda" << endl;
+            cout << "Paquete descargado de la maquinaria extrema izquierda" << endl;
         }
         else
         {
@@ -118,7 +118,7 @@ void Cintas::descargarPaquete()
             L.elemento(pos_paq) = N;
             C = N;
             pos_paq = ((Lista<tPaquete>::posicion)(int)(tam / 2));
-            cout << "Extraer paquete de la maquinaria extrema derecha" << endl;
+            cout << "Paquete descargado de la maquinaria extrema derecha" << endl;
         }
         else
         {
@@ -185,9 +185,6 @@ void Cintas::moverAtrasCinta(unsigned int n)
 
 int main()
 {
-    tPaquete p1, p2;
-    p1.contenido.push_back("ESPUMA-POLI");
-    p2 = p1;
     Cintas c(11);
     unsigned int op = 0;
     unsigned int cont = 0, cant = 0;
@@ -197,10 +194,12 @@ int main()
         cout << "M e n u " << endl;
         cout << "*********************************" << endl;
         cout << "1. Mover paquete a la izquierda" << endl;
-        cout << "2. Mover paquete a la derecha" << endl;
-        cout << "3. Cargar paquete" << endl;
-        cout << "4. Descargar paquete" << endl;
-        cout << "5. Salir" << endl;
+        cout << "2. Mover paquete por unidades a la izquierda" << endl;
+        cout << "3. Mover paquete a la derecha" << endl;
+        cout << "4. Mover paquete por unidades a la derecha" << endl;
+        cout << "5. Cargar paquete" << endl;
+        cout << "6. Descargar paquete" << endl;
+        cout << "7. Salir" << endl;
         cout << "ESTADO: ";
         c.mostrarCinta();
         cout << "ELEGIR: ";
@@ -212,18 +211,33 @@ int main()
             c.moverAtrasCinta();
             break;
         case 2:
-            c.moverFrenteCinta();
+            cout << "Número de unidades a mover (izquierda): ";
+            cin >> cant;
+            c.moverAtrasCinta(cant);
             break;
         case 3:
+            c.moverFrenteCinta();
+            break;
+        case 4:
+            cout << "Número de unidades a mover (derecha): ";
+            cin >> cant;
+            c.moverFrenteCinta(cant);
+            break;
+        case 5:
             cont = 0;
             do
             {
                 cout << "Contenido del paquete: " << endl;
-                if(!tiene[0]) cout << "1. ESPUMA-POLI" << endl;
-                if(!tiene[1]) cout << "2. PROT-BURBUJAS" << endl;
-                if(!tiene[2]) cout << "3. COJINES-AIRE" << endl;
-                if(!tiene[3]) cout << "4. FILM-AGUJ" << endl;
-                if(!tiene[4]) cout << "5. SOPORT-CART-GOM" << endl;
+                if (!tiene[0])
+                    cout << "1. ESPUMA-POLI" << endl;
+                if (!tiene[1])
+                    cout << "2. PROT-BURBUJAS" << endl;
+                if (!tiene[2])
+                    cout << "3. COJINES-AIRE" << endl;
+                if (!tiene[3])
+                    cout << "4. FILM-AGUJ" << endl;
+                if (!tiene[4])
+                    cout << "5. SOPORT-CART-GOM" << endl;
                 cout << "6. Procesar contenido" << endl;
                 cout << "Elegir: ";
                 cin >> cont;
@@ -257,18 +271,18 @@ int main()
             } while (cont != 6);
             c.cargarPaquete(p);
             break;
-        case 4:
+        case 6:
             c.descargarPaquete();
-            tiene[0] = false;
-            tiene[1] = false;
-            tiene[2] = false;
-            tiene[3] = false;
-            tiene[4] = false;
             break;
-        case 5:
+        case 7:
             break;
         default:
             break;
         }
-    } while (op != 5);
+        tiene[0] = false;
+        tiene[1] = false;
+        tiene[2] = false;
+        tiene[3] = false;
+        tiene[4] = false;
+    } while (op != 7);
 }
