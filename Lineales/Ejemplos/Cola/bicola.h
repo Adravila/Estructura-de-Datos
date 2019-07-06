@@ -158,3 +158,4 @@ void Bicola<T>::popFin()
 }
 
 #endif // COLA_ENLA_H
+
