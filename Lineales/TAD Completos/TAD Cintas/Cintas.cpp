@@ -7,8 +7,8 @@ using namespace std;
 /*
     ESPECIFICACIÓN DEL TAD CINTAS:
         
-        - Postcondición: Construye las cintas transportadoras, su estructura está compuesta por
-        - posiciones vacias, cada una de estas posicione ses utilizarán para transportar un
+        - Postcondición: Construye la cinta transportadora, su estructura está compuesta por
+        - posiciones vacias, cada una de estas posiciones se utilizarán para transportar un
          determinado paquete
         Cintas(const size_t n);
 
@@ -24,11 +24,9 @@ using namespace std;
          - Postcondición: Se añade un paquete en la posición central de la cinta
         void cargarPaquete(const tPaquete &p);
 
-         - Precondición: Debe haber un paquete en la cinta
-         - Postcondición: Retira el paquete de la cinta, el parámetro tTipo indica a qué lateral de la cinta
-         se extraer. Recordamos que si se extrae del lateral izquierdo es para un embalaje frágil, al otro
-         lado debe ser rígido.
-        void descargarPaquete(const tPaquete &p, const tTipo t);
+         - Postcondición: Retira el paquete de la cinta. Recordamos que si se extrae del lateral 
+          izquierdo es para un embalaje frágil, al otro lado debe ser rígido.
+        void descargarPaquete();
 
          - Postcondición: Devuelve true si el paquete de la lista es frágil, en caso contrario devuelve false
         bool comprobarPaqueteFragil(const Lista<tPaquete>::posicion &p) const;
@@ -193,7 +191,7 @@ int main()
     Cintas c(11);
     unsigned int op = 0;
     unsigned int cont = 0, cant = 0;
-
+    bool tiene[4] = {false, false, false, false};
     do
     {
         cout << "M e n u " << endl;
@@ -221,11 +219,11 @@ int main()
             do
             {
                 cout << "Contenido del paquete: " << endl;
-                cout << "1. ESPUMA-POLI" << endl;
-                cout << "2. PROT-BURBUJAS" << endl;
-                cout << "3. COJINES-AIRE" << endl;
-                cout << "4. FILM-AGUJ" << endl;
-                cout << "5. SOPORT-CART-GOM" << endl;
+                if(!tiene[0]) cout << "1. ESPUMA-POLI" << endl;
+                if(!tiene[1]) cout << "2. PROT-BURBUJAS" << endl;
+                if(!tiene[2]) cout << "3. COJINES-AIRE" << endl;
+                if(!tiene[3]) cout << "4. FILM-AGUJ" << endl;
+                if(!tiene[4]) cout << "5. SOPORT-CART-GOM" << endl;
                 cout << "6. Procesar contenido" << endl;
                 cout << "Elegir: ";
                 cin >> cont;
@@ -233,18 +231,23 @@ int main()
                 {
                 case 1:
                     p.contenido.push_back("ESPUMA-POLI");
+                    tiene[0] = true;
                     break;
                 case 2:
                     p.contenido.push_back("PROT-BURBUJAS");
+                    tiene[1] = true;
                     break;
                 case 3:
                     p.contenido.push_back("COJINES-AIRE");
+                    tiene[2] = true;
                     break;
                 case 4:
                     p.contenido.push_back("FILM-AGUJ");
+                    tiene[3] = true;
                     break;
                 case 5:
                     p.contenido.push_back("SOPORT-CART-GOM");
+                    tiene[4] = true;
                     break;
                 case 6:
                     break;
@@ -256,6 +259,11 @@ int main()
             break;
         case 4:
             c.descargarPaquete();
+            tiene[0] = false;
+            tiene[1] = false;
+            tiene[2] = false;
+            tiene[3] = false;
+            tiene[4] = false;
             break;
         case 5:
             break;
