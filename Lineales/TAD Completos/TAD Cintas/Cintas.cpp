@@ -143,7 +143,6 @@ bool Cintas::comprobarPaqueteFragil(const Lista<tPaquete>::posicion &p) const
             return true; // contenido frágil
         }
     }
-
     return false; // contenido no frágil
 }
 
