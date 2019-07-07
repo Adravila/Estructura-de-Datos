@@ -11,3 +11,4 @@ Lista de **TAD** para practicar:
 - **TAD Escalonada** [Diciembre 2014 conv especial, Junio 2017] **[Revisar]**
 - **TAD Binario** (Lista enlazada) [Junio 2018] **[Revisar]**
 - **TAD Cinta** (Lista vectorial) [Propio]
+- **TAD Canvas** (Pila enlazada) [Propio]
