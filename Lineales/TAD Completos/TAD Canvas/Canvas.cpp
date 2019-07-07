@@ -11,13 +11,16 @@ using namespace std;
     Canvas(char colores[tam][tam])
 
      - Precondición: x e y debe estar dentro de los límites de la matriz (entre 0 y 8)
+     - Postcondición: Selecciona una celda para ser reemplazado por un nuevo color
+    void Canvas::pintarCelda(int y, int x, RGB color)
+
+     - Precondición: x e y debe estar dentro de los límites de la matriz (entre 0 y 8)
      - Postcondición: Selecciona una celda, la pinta incluyendo a sus adyacentes de manera recursiva
     void rellenarColor(int x, int y, RGB color);
 
      - Postcondición: Imprime el estado actual del canvas    
     void mostrarCanvas() const;
  */
-
 
 typedef char RGB;
 const int tam = 9;
@@ -34,7 +37,8 @@ class Canvas
 {
 public:
     Canvas(char colores[tam][tam]);
-    void rellenarColor(int x, int y, RGB color);
+    void pintarCelda(int y, int x, RGB color);
+    void rellenarColor(int y, int x, RGB color);
     void mostrarCanvas() const;
 
 private:
@@ -53,9 +57,16 @@ Canvas::Canvas(char colores[tam][tam])
     }
 }
 
-void Canvas::rellenarColor(int x, int y, RGB color)
+void Canvas::pintarCelda(int y, int x, RGB color)
 {
-    RGB color_ = matriz[x][y].color; // antiguo color
+    assert(x < tam && y < tam && x > 0 && y > 0);
+    matriz[y][x].color = color;
+}
+
+void Canvas::rellenarColor(int y, int x, RGB color)
+{
+    assert(x < tam && y < tam && x >= 0 && y >= 0);
+    RGB color_ = matriz[y][x].color; // antiguo color
 
     // Comprobamos si el nodo a pintar es del mismo color, evitamos su relleno si es así
     if (color == color_)
@@ -65,6 +76,12 @@ void Canvas::rellenarColor(int x, int y, RGB color)
 
     do
     {
+        if (!P.vacia())
+        {
+            x = P.tope().col;
+            y = P.tope().fil;
+            P.pop();
+        }
         if (y - 1 >= 0 && color_ == matriz[y - 1][x].color) // ARRIBA
         {
             P.push(matriz[y - 1][x]);
@@ -81,10 +98,9 @@ void Canvas::rellenarColor(int x, int y, RGB color)
         {
             P.push(matriz[y + 1][x]);
         }
+
         matriz[y][x].color = color;
-        x = P.tope().col;
-        y = P.tope().fil;
-        P.pop();
+
     } while (!P.vacia());
 }
 
@@ -119,5 +135,6 @@ int main()
     c.rellenarColor(7, 7, 'R');
     c.rellenarColor(4, 4, 'G');
     c.rellenarColor(0, 0, 'Z');
+    c.pintarCelda(4, 4, 'O');
     c.mostrarCanvas();
 }
