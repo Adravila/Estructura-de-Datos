@@ -1,71 +1,144 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include "Pila_enla.h"
 
 using namespace std;
 
-struct tCubo
+/*
+  Un cubo es  cuerpo formado por seis caras que son cuadradas. La particularidad
+  de estos cuerpos es que todas las caras son simetricas, están dispuestas de
+  forma paralela y de a pares, y tienen cuatro lados. Una de las caras es hueca.
+  Todo cubo cuenta con un tamaño invariable definido por el tamaño de una de sus
+  aristas, y puede colocarse en 8 posiciones distintas, que pueden resumirse en
+  cubo cuya cara opuesta se situe más arriba en la pila, es el que puede
+  considerarse en el tope. Dicha relación será expresada en función del tamaño
+  del cubo. Para realizar el juego utilizaré el tad Pila en su representación
+  mediante celdas enlazadas, cuya especificación podreís encontrar en la teoría
+  del tema 5 en el campus virtual.
+
+  Operaciones:
+
+  tCubo(entero, entero)
+  Precondicion: recibe dos enteros como parametros o 1 en el caso por defecto.
+  Postcondición: crea un cubo con un tamaño correspondiente al primer entero,
+  siempre igual o mayor a 1, y otro entero que es la  posición, que si es 0 es
+  boca abajo y si es mayor que 0, es bocarriba.
+
+  entero tam()
+  Postcondición: devuelve el tamaño del cubo.
+
+  entero pos()
+  Postcondición: devuelve la posición del cubo.
+
+  procedimiento vuelta()
+  Postcondición: cambia la posición del cubo. Si es 0 a 1. Si es mayor que 0, lo
+  cambia a 0.
+
+  PilaDeCubos juego(PilaDeCubos )
+  Precondicion: recibe una PilaDeCubos con al menos 2 cubos.
+  Postcondición: devuelve una PilaDeCubos con los cubos de la pila parametro
+  ordenados de mayor a menor.
+*/
+
+class tCubo
 {
-	int altura;
-	int anchura;
-	tCubo(int n, int a) : altura(a), anchura(n) {}
+public:
+  tCubo(const int t = 1, const int p = 1);
+  const int tam() const { return tam_; }
+  int pos() const { return pos_; }
+  void vuelta()
+  {
+    if (pos_)
+    {
+      pos_ = 0;
+    }
+    else
+    {
+      pos_ = 1;
+    }
+  }
+
+private:
+  int tam_;
+  int pos_;
 };
 
-Pila<tCubo> Ordena(const Pila<tCubo>& P)
+tCubo::tCubo(const int t, const int p) : tam_{t}, pos_{p}
 {
-	Pila<tCubo> Porg, Pnew, Paux;
-	Porg = P;
+  if (tam_ < 1)
+    tam_ = 1;
+  if (pos_ < 0)
+    pos_ = 1;
+}
 
-	while(!Porg.vacia())
-	{
-		if(Porg.tope().altura < 0)
-		{
-			tCubo c = Porg.tope();
-			c.altura *= -1; 
-			Porg.pop();
-			Porg.push(c);
-		}
-		if(Pnew.vacia())
-		{
-			Pnew.push(Porg.tope());
-			Porg.pop();
-		}
-		else if(Pnew.tope().anchura < Porg.tope().anchura)
-		{
-			Paux.push(Pnew.tope());
-			Pnew.pop();
-		}
-		else
-		{
-			Pnew.push(Porg.tope());
-			Porg.pop();
-			while(!Paux.vacia())
-			{
-				Pnew.push(Paux.tope());
-				Paux.pop();
-			}
-		}
-	}
-	return Pnew;
+Pila<tCubo> juego(Pila<tCubo> &P1)
+{
+  Pila<tCubo> P2, P3;
+
+  while (!P1.vacia())
+  {
+    P2.push(P1.tope());
+    P1.pop();
+
+    if (P2.tope().pos())
+    {
+      tCubo aux(P2.tope());
+      P2.pop();
+      aux.vuelta();
+      P2.push(aux);
+    }
+
+    if (!P1.vacia() && P1.tope().tam() > P2.tope().tam())
+    {
+      P3.push(P1.tope());
+      P1.pop();
+    }
+
+    while (!P2.vacia() && !P3.vacia() && P2.tope().tam() < P3.tope().tam())
+    {
+      P1.push(P2.tope());
+      P2.pop();
+    }
+
+    if (!P3.vacia())
+    {
+      P2.push(P3.tope());
+      P3.pop();
+    }
+  }
+
+  return P2;
+}
+
+void pilePrint(const Pila<tCubo> P)
+{
+  Pila<tCubo> P1(P);
+
+  while (!P1.vacia())
+  {
+    cout << P1.tope().tam() << " ";
+    P1.pop();
+  }
+
+  cout << endl;
 }
 
 int main()
 {
-	Pila<tCubo> P;
-	tCubo t1(4,4), t2(9,-5), t3(3,-6), t4(1,4), t5(10,5), t6(20,5), t7(2,-3), t8(7,2);
-	P.push(t1);
-	P.push(t2);
-	P.push(t3);
-	P.push(t4);
-	P.push(t5);
-	P.push(t6);
-	P.push(t7);
-	P.push(t8);
-	
-	P = Ordena(P);
-	
-	while(!P.vacia())
-	{
-		cout << "Anchura: " << P.tope().anchura << " y altura: " << P.tope().altura << endl;
-		P.pop();
-	}	
+  srand(time(NULL));
+  Pila<tCubo> P;
+  unsigned i = 0;
+
+  while (i < 5)
+  {
+    P.push(tCubo(rand() % 10 + 1, rand() % 2));
+    ++i;
+  }
+
+  pilePrint(P);
+  Pila<tCubo> P1 = juego(P);
+  pilePrint(P1);
+
+  return 0;
 }
