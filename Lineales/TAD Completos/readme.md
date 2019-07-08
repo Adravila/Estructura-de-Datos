@@ -9,6 +9,8 @@ Lista de **TAD** para practicar:
 - **TAD Cocina** (Lista vectorial) [Febrero 2014, Junio 2016, Junio 2018 (Especial)] **[Revisar]**
 - **TAD Hospital** (Lista vectorial) **[Revisar]**
 - **TAD Escalonada** [Diciembre 2014 conv especial, Junio 2017] **[Revisar]**
-- **TAD Binario** (Lista enlazada) [Junio 2018] **[Revisar]**
-- **TAD Cinta** (Lista vectorial) [Propio]
-- **TAD Canvas** (Pila enlazada) [Propio]
+- **TAD Binario** (Lista enlazada) [Junio 2018] **[Completado y revisado]**
+- **TAD Cinta** (Lista vectorial) [Propio] **[Completado y revisado]**
+- **TAD Canvas** (Pila enlazada) [Propio] **[Completado y revisado]**
+- **TAD Conjunto** (Lista enlazada) [Prácticas] **[Completado y revisado]**
+- **TAD Cursor** (Pila enlazada) [Prácticas] **[Completado y revisado]**
