@@ -3,34 +3,60 @@
 
 using namespace std;
 
-template <int M>
+/** ESPECIFICACIÓN DEL TAD TicTacToe 
+ *  
+ *   - Postcondición: construye una matriz de 3x3 de tipo char, se insertan puntos
+ *   que lo consideramos como posiciones vacías.
+ *  TicTacToe()
+ * 
+ *   - Precondición: c debe ser un char con el carácter 'X' o 'O'
+ *   - Postcondición: Coloca una pieza indicada en la matriz por 'y' (fil) y 'x' (col)
+ *  void colocarPieza(unsigned int y, unsigned int x, char c);
+ * 
+ *   - Postcondición: Muestra el estado actual del tablero
+ *  void mostrarTablero() const;
+ * 
+ *   - Postcondición: Devuelve el turno del jugador
+ *  char jugadorActual() const;
+ * 
+ *   - Precondición: Las posiciones 'y' y 'x' deben estar dentro de los límites de la matriz
+ *   - Postcondición: Devuelve true si la posición es válida, en caso contrario devolverá false
+ *  bool posicionValida(unsigned int y, unsigned int x) const
+ * 
+ *   - Precondición: Las posiciones 'y' y 'x' deben estar dentro de los límites de la matriz
+ *   - Postcondición: Devuelve true si el jugador indicado por el parámetro ha ganado la partida,
+ *     en caso contrario devolverá false.
+ *  bool haGanado(int fil, int col, char turno)
+ * 
+*/
+
 class TicTacToe
 {
 public:
     TicTacToe();
-    void colocarPieza(unsigned int x, unsigned int y, char c);
+    void colocarPieza(unsigned int y, unsigned int x, char c);
     void mostrarTablero() const;
     char jugadorActual() const;
+    bool posicionValida(unsigned int y, unsigned int x) const;
     bool haGanado(int fil, int col, char turno);
+
 private:
-    char matriz[M][M];
-    char player;
+    char matriz[3][3];
+    char player; // O ó X
 };
 
-template <int M>
-TicTacToe<M>::TicTacToe() : player('X')
+TicTacToe::TicTacToe() : player('X')
 {
-    for (int i = 0; i < M; ++i)
+    for (int i = 0; i < 3; ++i)
     {
-        for (int j = 0; j < M; ++j)
+        for (int j = 0; j < 3; ++j)
         {
             matriz[i][j] = '.';
         }
     }
 }
 
-template <int M>
-void TicTacToe<M>::colocarPieza(unsigned int x, unsigned int y, char c)
+void TicTacToe::colocarPieza(unsigned int y, unsigned int x, char c)
 {
     assert(c == 'X' || c == 'O'); // Validar si es 'X' o 'O' antes de continuar
 
@@ -38,42 +64,25 @@ void TicTacToe<M>::colocarPieza(unsigned int x, unsigned int y, char c)
     {
         cout << "Tienes que esperar el próximo turno." << endl;
     }
-    else
+    if (posicionValida(y, x))
     {
-        // Comprobamos si x,y está dentro de los límites del tablero
-        if (x >= 0 && x < M && y >= 0 && y < M)
+        matriz[y][x] = c;
+        if (player == 'X')
         {
-            // Comprobamos si en x,y no hay ninguna ficha colocada
-            if (matriz[x][y] == '.')
-            {
-                matriz[x][y] = c;
-                if (player == 'X')
-                {
-                    player = 'O';
-                }
-                else
-                {
-                    player = 'X';
-                }
-            }
-            else
-            {
-                cout << "Ya hay una ficha colocada en el tablero." << endl;
-            }
+            player = 'O';
         }
         else
         {
-            cout << "La ficha está fuera de los límites del tablero." << endl;
+            player = 'X';
         }
     }
 }
 
-template <int M>
-void TicTacToe<M>::mostrarTablero() const
+void TicTacToe::mostrarTablero() const
 {
-    for (int i = 0; i < M; ++i)
+    for (int i = 0; i < 3; ++i)
     {
-        for (int j = 0; j < M; ++j)
+        for (int j = 0; j < 3; ++j)
         {
             cout << matriz[i][j] << " ";
         }
@@ -82,65 +91,60 @@ void TicTacToe<M>::mostrarTablero() const
     cout << endl;
 }
 
-template <int M>
-inline char TicTacToe<M>::jugadorActual() const
+inline char TicTacToe::jugadorActual() const
 {
     return player;
 }
 
-template <int M>
-bool TicTacToe<M>::haGanado(int fil, int col, char turno)
+bool TicTacToe::haGanado(int fil, int col, char turno)
 {
-    int v[4] = {0, 0, 0, 0};
-    bool cond[4] = {true, true, true, true};
-    char turno_;
+   bool gana = false;
 
-    if (turno == 'O')
-    {
-        turno_ = 'X';
-    }
-    else if (turno == 'X')
-    {
-        turno_ = 'O';
-    }
-    
-    for (int i = 0; i < M; ++i)
-    {
-        if (cond[0] && matriz[fil][i] == turno_) // Horizontal
-        {
-            cout << turno_;
-            cond[0] = false;
-            v[0] += 1;
-        }
-        if (cond[1] && matriz[i][col] == turno_) // Vertical
-        {
-            cond[1] = false;
-            v[1] += 1;
-        }
-        if (cond[2] && matriz[M - 1][i] == turno_) // Vertical
-        {
-            cond[2] = false;
-            v[2] += 1;
-        }
-        if (cond[3] && matriz[0][i] == turno_) // Vertical
-        {
-            cond[3] = false;
-            v[3] += 1;
-        }
-    }
+    // Horizontal
+    if(matriz[0][0] == turno && matriz[0][1] == turno && matriz[0][2] == turno) gana = true;
+    else if(matriz[1][0] == turno && matriz[1][1] == turno && matriz[1][2] == turno) gana = true;
+    else if(matriz[2][0] == turno && matriz[2][1] == turno && matriz[2][2] == turno) gana = true;
 
-    for (int i = 0; i < M; ++i)
+    // vertical
+    else if(matriz[0][0] == turno && matriz[1][0] == turno && matriz[2][0] == turno) gana = true;
+    else if(matriz[0][1] == turno && matriz[1][1] == turno && matriz[2][1] == turno) gana = true;
+    else if(matriz[0][2] == turno && matriz[1][2] == turno && matriz[2][2] == turno) gana = true;
+
+    // Diagonal principal
+    else if(matriz[0][0] == turno && matriz[1][1] == turno && matriz[1][2] == turno) gana = true;
+    // Diagonal inversa
+    else if(matriz[2][0] == turno && matriz[2][1] == turno && matriz[2][2] == turno) gana = true;
+    return gana;
+}
+
+bool TicTacToe::posicionValida(unsigned int y, unsigned int x) const
+{
+    bool estado = true;
+    // Comprobamos si x,y está dentro de los límites del tablero
+    if (y >= 0 && y < 3 && x >= 0 && x < 3)
     {
-        cout << v[i] << " ";
-        if (v[i] == M)
-            return true;
+        // Comprobamos si en x,y no hay ninguna ficha colocada
+        if (matriz[y][x] == '.')
+        {
+            estado = true;
+        }
+        else
+        {
+            cout << "Ya hay una ficha colocada en el tablero." << endl;
+            estado = false;
+        }
     }
-    return false;
+    else
+    {
+        cout << "La ficha está fuera de los límites del tablero." << endl;
+        estado = false;
+    }
+    return estado;
 }
 
 int main()
 {
-    TicTacToe<3> t;
+    TicTacToe t;
     int fil, col;
     char turno = 'X';
     bool gana = false;
@@ -149,7 +153,6 @@ int main()
     {
         cout << "Resultado:\n\n";
         t.mostrarTablero();
-        cout << endl;
         cout << "TURNO DE " << turno << ": " << endl;
         cout << "Elije la casilla a insertar: " << endl;
         cout << "Fila y Columna: ";
