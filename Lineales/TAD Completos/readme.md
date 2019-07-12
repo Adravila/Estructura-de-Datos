@@ -12,5 +12,6 @@ Lista de **TAD** para practicar:
 - **TAD Binario** (Lista enlazada) [Junio 2018] **[Completado y revisado]**
 - **TAD Cinta** (Lista vectorial) [Propio] **[Completado y revisado]**
 - **TAD Canvas** (Pila enlazada) [Propio] **[Completado y revisado]**
+- **TAD TicTacToe** (Matriz) [Propio] **[Completado y revisado]**
 - **TAD Conjunto** (Lista enlazada) [Prácticas] **[Completado y revisado]**
 - **TAD Cursor** (Pila enlazada) [Prácticas] **[Completado y revisado]**
