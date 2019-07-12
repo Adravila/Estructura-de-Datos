@@ -110,10 +110,10 @@ bool TicTacToe::haGanado(int fil, int col, char turno)
     else if(matriz[0][1] == turno && matriz[1][1] == turno && matriz[2][1] == turno) gana = true;
     else if(matriz[0][2] == turno && matriz[1][2] == turno && matriz[2][2] == turno) gana = true;
 
-    // Diagonal principal
+    // Diagonales
     else if(matriz[0][0] == turno && matriz[1][1] == turno && matriz[1][2] == turno) gana = true;
-    // Diagonal inversa
     else if(matriz[2][0] == turno && matriz[2][1] == turno && matriz[2][2] == turno) gana = true;
+    
     return gana;
 }
 
