@@ -15,3 +15,5 @@ Lista de **TAD** para practicar:
 - **TAD TicTacToe** (Matriz) [Propio] **[Completado y revisado]**
 - **TAD Conjunto** (Lista enlazada) [Prácticas] **[Completado y revisado]**
 - **TAD Cursor** (Pila enlazada) [Prácticas] **[Completado y revisado]**
+- **TAD Cadena** (Vector) [Propio] **[Completado y revisado]**
+- **TAD Figura** (Vector) [Propio] **[Completado y revisado]**
