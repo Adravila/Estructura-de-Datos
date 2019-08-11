@@ -8,6 +8,7 @@ using namespace std;
 
 // Comprobar si el nodo n tiene tres nietos
 
+/*
 template <typename T>
 bool nodoConTresNietosRec(const Abin<T> &A, typename Abin<T>::nodo n)
 {
@@ -29,6 +30,7 @@ bool nodoConTresNietosRec(const Abin<T> &A, typename Abin<T>::nodo n)
    return cont == 3;
 }
 
+
 template <typename T>
 bool nodoConTresNietos(const Abin<T> &A, typename Abin<T>::nodo n)
 {
@@ -40,7 +42,28 @@ bool nodoConTresNietos(const Abin<T> &A, typename Abin<T>::nodo n)
    {
       return false;
    }
-   
+}
+*/
+
+template <typename T>
+int contarNietos(const Abin<T> &A, typename Abin<T>::nodo n, typename Abin<T>::nodo abuelo)
+{
+   int cont = 0;
+   if (Abin<T>::NODO_NULO == n)
+   {
+      return 0;
+   }
+   else if (Abin<T>::NODO_NULO != n && Abin<T>::NODO_NULO != A.padreB(n) && abuelo == A.padreB(A.padreB(n)))
+   {
+      ++cont;
+   }
+   return cont + contarNietos(A, A.hijoIzqdoB(n), abuelo) + contarNietos(A, A.hijoDrchoB(n), abuelo);
+}
+
+template <typename T>
+bool comprobarTresNietos(const Abin<T> &A, typename Abin<T>::nodo n)
+{
+   return (!A.arbolVacioB() && contarNietos(A, n, n) == 3);
 }
 
 /****************************************************/
@@ -50,21 +73,12 @@ const tElto fin = '#'; // fin de lectura
 
 int main()
 {
-   Abin<tElto> A, B;
-   /*
-   cout << "*** Lectura del árbol binario A ***\n";
-   rellenarAbin(A, fin); // desde std::cin
-   ofstream fs("abin.dat"); // abrir fichero de salida
-   imprimirAbin(fs, A, fin); // en fichero
-   fs.close();
-   cout << "\n*** Árbol A guardado en fichero abin.dat ***\n";
-   */
-   cout << "\n*** Lectura de árbol binario B de abin.dat ***\n";
+   Abin<char> A;
+   cout << "\n*** Lectura de árbol binario A de abin.dat ***\n";
    ifstream fe("abin.dat"); // abrir fichero de entrada
-   rellenarAbin(fe, B);     // desde fichero
+   rellenarAbin(fe, A);     // desde fichero
    fe.close();
-   cout << "\n*** Mostrar árbol binario B ***\n";
-   imprimirAbin(B); // en std::cout
-
-   cout << "\nÁrbol con tres nietos: " << nodoConTresNietos(B,A.raizB()) << endl;
+   cout << "\n*** Mostrar árbol binario A ***\n";
+   imprimirAbin(A); // en std::cout
+   cout << "\nTiene tres nietos: " << comprobarTresNietos(A, (A.raizB())) << endl;
 }

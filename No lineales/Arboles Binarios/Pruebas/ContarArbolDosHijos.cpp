@@ -8,27 +8,23 @@
 /* Comprueba si el árbol tiene siempre dos hijos o ninguno por cada uno de los nodos de éste */
 
 template <typename T>
-bool arbolDosHijosRec(const Abin<T> &A, typename Abin<T>::nodo n)
+int dosHijosRec(typename Abin<T>::nodo n, const Abin<T> &A)
 {
-    if (n == Abin<T>::NODO_NULO)
+    int cont = 0;
+    if (Abin<T>::NODO_NULO == n)
+        return 0;
+    else if ((Abin<T>::NODO_NULO != A.hijoIzqdoB(n) && Abin<T>::NODO_NULO != A.hijoDrchoB(n)) || // Tiene 2 hijos
+             (Abin<T>::NODO_NULO == A.hijoIzqdoB(n) && Abin<T>::NODO_NULO == A.hijoDrchoB(n)))   // Es hoja
     {
-        return true;
+        ++cont;
     }
-    else if ((A.hijoIzqdoB(n) != Abin<T>::NODO_NULO && A.hijoDrchoB(n) == Abin<T>::NODO_NULO) ||
-             (A.hijoIzqdoB(n) == Abin<T>::NODO_NULO && A.hijoDrchoB(n) != Abin<T>::NODO_NULO))
-    {
-        return false;
-    }
-    else
-    {
-        return arbolDosHijosRec(A, A.hijoIzqdoB(n)) && arbolDosHijosRec(A, A.hijoDrchoB(n));
-    }
+    return cont + dosHijosRec(A.hijoIzqdoB(n), A) + dosHijosRec(A.hijoDrchoB(n), A);
 }
 
 template <typename T>
-bool arbolDosHijos(const Abin<T> &A)
+int arbolDosHijos(const Abin<T> &A)
 {
-    return arbolDosHijosRec(A, A.raizB());
+    return dosHijosRec(A.raizB(), A);
 }
 
 using namespace std;
