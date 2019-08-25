@@ -6,7 +6,7 @@ Lista de **TAD** para practicar:
 - **TAD Consultorio** (Lista enlazada) [Febrero 2016] **[Completado y revisado]**
 - **TAD Cubilete** [Septiembre 2016, Septiembre 2018] **[Completado y revisado]**
 - **TAD Diccionario** (Lista enlazada) **[Completado y revisado]**
-- **TAD Cocina** (Lista vectorial) [Febrero 2014, Junio 2016, Junio 2018 (Especial)] **[Revisar]**
+- **TAD Cocina** (Lista vectorial) [Febrero 2014, Junio 2016, Junio 2018 (Especial)] **[Completado]**
 - **TAD Hospital** (Lista vectorial) **[Revisar]**
 - **TAD Escalonada** [Diciembre 2014 conv especial, Junio 2017] **[Revisar]**
 - **TAD Binario** (Lista enlazada) [Junio 2018] **[Completado y revisado]**
