@@ -68,7 +68,7 @@ int main()
     vector<GrafoP<int>::vertice> dij;
     vector<GrafoP<int>::vertice> dijInv;
     std::cout << "\nResultado Dijkstra: ";
-    std::cout << Dijkstra(G,3,dij);
+    std::cout << Dijkstra(G,0,dij);
     std::cout << "\nResultado Dijkstra inverso: ";
     std::cout << DijkstraInv(G,3,dijInv) << std::endl;
 }

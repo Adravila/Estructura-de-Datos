@@ -6,24 +6,44 @@
 using namespace std;
 
 template <typename T>
-int contarAbuelosRec(const Abin<T> &A, typename Abin<T>::nodo n)
+bool esAbuelo(typename Abin<T>::nodo n, Abin<T> &A)
 {
-    int cont = 0;
+    if (Abin<T>::NODO_NULO == n)
+    {
+        return true;
+    }
+    else
+    {
+        return (A.hijoIzqdoB(n) != Abin<T>::NODO_NULO && 
+        ((A.hijoIzqdoB(A.hijoIzqdoB(n)) != Abin<T>::NODO_NULO) || A.hijoDrchoB(A.hijoIzqdoB(n)) != Abin<T>::NODO_NULO) ||
+        (A.hijoDrchoB(n) != Abin<T>::NODO_NULO &&
+        ((A.hijoIzqdoB(A.hijoDrchoB(n)) != Abin<T>::NODO_NULO) || A.hijoDrchoB(A.hijoDrchoB(n)) != Abin<T>::NODO_NULO)));
+    }
+}
+
+template <typename T>
+int contarAbuelosRec(typename Abin<T>::nodo n, Abin<T> &A)
+{
     if (Abin<T>::NODO_NULO == n)
     {
         return 0;
     }
-    else if (Abin<T>::NODO_NULO != n && Abin<T>::NODO_NULO != A.padreB(n) && Abin<T>::NODO_NULO != A.padreB(A.padreB(n)))
+    else
     {
-        ++cont;
+        int cont = 0;
+        if (esAbuelo(n, A))
+        {
+            cout << A.elemento(n);
+            ++cont;
+        }
+        return cont + contarAbuelosRec(A.hijoIzqdoB(n), A) + contarAbuelosRec(A.hijoDrchoB(n), A);
     }
-    return cont + contarAbuelosRec(A, A.hijoIzqdoB(n)) + contarAbuelosRec(A, A.hijoDrchoB(n));
 }
 
 template <typename T>
-int contarAbuelos(const Abin<T> &A)
+int contarAbuelos(Abin<T> &A)
 {
-    return contarAbuelosRec(A,A.raizB());
+    return contarAbuelosRec(A.raizB(), A);
 }
 
 int main()

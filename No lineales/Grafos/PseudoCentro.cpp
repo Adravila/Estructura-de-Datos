@@ -20,8 +20,8 @@ int Diametro(const GrafoP<tCoste> &G)
     Costes = Floyd(G, Camino);
     for (int i = 0; i < Costes.dimension(); i++)
         sort(Costes[i].begin(), Costes[i].end());
-    suma = Costes[0][Costes.dimension() - 1] + Costes[0][Costes.dimension() - 2];
-    for (int j = 1; j < Costes.dimension(); j++)
+    suma = 999;
+    for (int j = 0; j < Costes.dimension(); j++)
     {
         if ((Costes[j][Costes.dimension() - 1] + Costes[j][Costes.dimension() - 2]) < suma)
         {

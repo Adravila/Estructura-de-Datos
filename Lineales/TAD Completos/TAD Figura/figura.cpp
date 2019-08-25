@@ -23,7 +23,7 @@ public:
     int calcularAnchuraMax();
     bool vacia() const;
     // Extra
-    void imprimirFiguras() const; // OK
+    void imprimirFiguras() const;
 private:
     char *figuras;
     size_t tam, fin;
