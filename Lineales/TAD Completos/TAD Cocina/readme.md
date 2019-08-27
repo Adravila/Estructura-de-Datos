@@ -1,4 +1,4 @@
-## Enunciado TAD Cocina [Sin especificar/implementar]
+## Enunciado TAD Cocina [Completado]
 Implemente el TAD Cocina. Una pared de una cocina de una longitud determinada tiene que ser amueblada. Los muebles se identifican por una posicion y una anchura. La cocina tiene una anchura y una serie de muebles. Operaciones que se piden:
 - Constructor de cocina.
 - Método para saber si un mueble cabe en una posición.
