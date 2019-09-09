@@ -33,7 +33,6 @@ int contarAbuelosRec(typename Abin<T>::nodo n, Abin<T> &A)
         int cont = 0;
         if (esAbuelo(n, A))
         {
-            cout << A.elemento(n);
             ++cont;
         }
         return cont + contarAbuelosRec(A.hijoIzqdoB(n), A) + contarAbuelosRec(A.hijoDrchoB(n), A);

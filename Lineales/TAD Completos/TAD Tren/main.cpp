@@ -14,9 +14,9 @@ int main()
     T.DesplazarIzq();
     T.DesplazarIzq();
     T.DesplazarDrch();
-    T.EliminarVagon();
-    T.EliminarVagon();
-    T.EliminarVagon();
+    //T.EliminarVagon();
+    //T.EliminarVagon();
+    //T.EliminarVagon();
     //T.EliminarVagon();
     //T.EliminarVagon();
 

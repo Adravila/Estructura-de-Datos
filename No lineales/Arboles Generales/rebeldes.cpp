@@ -22,10 +22,9 @@ int contarAncestros(typename Agen<T>::nodo n, const Agen<T> &A)
 template <typename T>
 int num_true(typename Agen<T>::nodo n, const Agen<T> &A)
 {
-
     if (n == Agen<T>::NODO_NULO)
         return 0;
-    else if (A.padre(n))
+    else if (A.elemento(A.padre(n)))
         return 1 + num_true(A.padre(n), A);
     else
         return num_true(A.padre(n), A);

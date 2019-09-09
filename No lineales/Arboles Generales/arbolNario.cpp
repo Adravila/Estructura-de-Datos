@@ -25,16 +25,14 @@ bool esArbolnarioRec(typename Agen<T>::nodo n, const Agen<T> &A, int grado)
     {
         cont = 0;
         hijo = A.hijoIzqdo(n);
+        bool res = true;
         while (hijo != Agen<T>::NODO_NULO)
         {
-            if (!esArbolnarioRec(hijo, A, grado))
-            {
-                return false;
-            }
+            res = esArbolnarioRec(hijo, A, grado);
             ++cont;
             hijo = A.hermDrcho(hijo);
         }
-        return (cont == grado || cont == 0);
+        return (cont == grado || cont == 0) && res;
     }
 }
 

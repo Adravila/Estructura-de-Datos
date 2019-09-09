@@ -41,7 +41,7 @@ disj -- SUMA --- InvD
 4. origen disj  --TREN [][] BUS -- disjinv -- DESTINO
 
 Sol: floyd ?
-
+	
 9.
 4 viajes
 2 Disjk

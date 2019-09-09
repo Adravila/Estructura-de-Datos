@@ -11,6 +11,8 @@ using namespace std;
  * Creado por: Adrián Dávila Guerra ©
  * 25/04/2019
 **/
+
+/*
 template <typename T>
 bool esNieto(typename Agen<T>::nodo n, const Agen<T> &A)
 {
@@ -29,6 +31,15 @@ bool esNieto(typename Agen<T>::nodo n, const Agen<T> &A)
 		return cont == 2;
 	}
 }
+*/
+
+template <typename T>
+bool esNieto(typename Agen<T>::nodo n, const Agen<T> &A)
+{
+	typename Agen<T>::nodo nulo = Agen<T>::NODO_NULO;
+	return (n != nulo && A.padre(n) != nulo && A.padre(A.padre(n)) != nulo);
+}
+
 
 template <typename T>
 int contarNietosRec(typename Agen<T>::nodo n, const Agen<T> &A)

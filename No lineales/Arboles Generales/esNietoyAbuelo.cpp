@@ -13,46 +13,57 @@ using namespace std;
 **/
 
 template <typename T>
-bool esAbuelo(typename Agen<T>::nodo n, const Agen<T> &A, int prof)
+bool esAbuelo(typename Agen<T>::nodo n, int prof, const Agen<T> &A)
 {
-    typename Agen<T>::nodo hijo;
     if (n == Agen<T>::NODO_NULO)
-        return false;
+    {
+        return true;
+    }
     else
     {
-        hijo = A.hijoIzqdo(n);
-        while (hijo != Agen<T>::NODO_NULO)
+        bool res = false;
+        typename Agen<T>::nodo hijo = A.hijoIzqdo(n);
+        if (prof == 2)
         {
-            if (esAbuelo(hijo, A, prof + 1))
-            {
-                // Puede dar tres casos:
-                // 1. Que el nodo es nulo (línea 20) y por tanto es falso, no entra en la condición
-                // 2. Que el nodo es válido (línea 36) pero no tiene la altura para ser 'abuelo'
-                // 3. Que el nodo es válido (línea 36) pero tiene la altura exacta para ser 'abuelo'
-                return true;
-            }
+            res = true;
+        }
+        while (hijo != Agen<T>::NODO_NULO && !res)
+        {
+            res = esAbuelo(hijo, prof + 1, A);
             hijo = A.hermDrcho(hijo);
         }
-        return (prof == 2);
+        return res;
     }
 }
 
 template <typename T>
 bool esNieto(typename Agen<T>::nodo n, const Agen<T> &A)
 {
-    int cont = 0;
-    while (n != A.raiz())
-    {
-        ++cont;
-        n = A.padre(n);
-    }
-    return cont == 2;
+    return n != Agen<T>::NODO_NULO && A.padre(n) != Agen<T>::NODO_NULO && A.padre(A.padre(n)) != Agen<T>::NODO_NULO;
 }
 
 template <typename T>
 bool esNietoAbuelo(typename Agen<T>::nodo n, const Agen<T> &A)
 {
-    return esAbuelo(n, A, 0) && esNieto(n, A);
+    if (n == Agen<T>::NODO_NULO)
+    {
+        return true;
+    }
+    else
+    {
+        bool res = false;
+        typename Agen<T>::nodo hijo = A.hijoIzqdo(n);
+        if (esAbuelo(n, 0, A) && esNieto(n,A))
+        {
+            res = true;
+        }
+        while (hijo != Agen<T>::NODO_NULO && !res)
+        {
+            res = esNietoAbuelo(hijo, A);
+            hijo = A.hermDrcho(hijo);
+        }
+        return res;
+    }
 }
 
 int main()
@@ -60,7 +71,7 @@ int main()
     Agen<char> A;
     cout << "\n*** Lectura de árbol binario B de abin.dat ***\n";
     ifstream fe("Data/agen-abu.dat"); // abrir fichero de entrada
-    rellenarAgen(fe, A);         // desde fichero
+    rellenarAgen(fe, A);              // desde fichero
     fe.close();
     cout << "\n*** Mostrar árbol general A ***\n";
     imprimirAgen(A);

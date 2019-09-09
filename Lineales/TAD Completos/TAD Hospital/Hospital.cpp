@@ -4,7 +4,7 @@
 using namespace std;
 
 /**
- * Especificad e implemetad el TAD Hospital. Este TAD representa los pacientes (código de paciente) 
+ * Especificad e implementad el TAD Hospital. Este TAD representa los pacientes (código de paciente) 
  * ingresados en el mismo. La gravedad de los pacientes se indica mediante un dígito decimal 
  * (en orden decreciente de gravedad). Si un paciente tiene una gravedad entre 1 y 5, estará 
  * ingresado en la U.C.I. (Unidad de Cuidados Intensivos), si su gravedad se encuentra 
@@ -152,7 +152,6 @@ void Hospital::ingresoPaciente(unsigned int id, unsigned int grav)
             }
         }
     }
-
 }
 
 // Postcondición: Dar de alta un paciente con el mejor estado de salud

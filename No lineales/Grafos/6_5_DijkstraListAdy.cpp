@@ -8,6 +8,11 @@
 
 using namespace std;
 
+/*
+5. Escribir una función genérica que implemente el algoritmo de Dijkstra usando un
+grafo ponderado representado mediante listas de adyacencia. 
+*/
+
 // Suma de costes (Dijkstra y Floyd)
 template <typename tCoste>
 tCoste suma(tCoste x, tCoste y)
@@ -64,6 +69,7 @@ vector<tCoste> Dijkstra(const GrafoP<tCoste> &G,
         S[w] = true; // Incluir vértice w en S.
         // Recalcular coste hasta cada v no incluido en S a través de w.
         for (v = 0; v < n; v++)
+        {
             if (!S[v])
             {
                 vertCost.v = v;
@@ -79,8 +85,8 @@ vector<tCoste> Dijkstra(const GrafoP<tCoste> &G,
                     }
                 }
             }
+        }
     }
-
     return D;
 }
 
@@ -90,5 +96,5 @@ int main()
     cout << G;
     vector<GrafoP<int>::vertice> dij;
     cout << "\nResultado Dijkstra: ";
-    Dijkstra(G,0,dij);
+    Dijkstra(G, 0, dij);
 }
