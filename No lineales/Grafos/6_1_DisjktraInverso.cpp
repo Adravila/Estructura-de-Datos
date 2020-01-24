@@ -70,5 +70,5 @@ int main()
     std::cout << "\nResultado Dijkstra: ";
     std::cout << Dijkstra(G,0,dij);
     std::cout << "\nResultado Dijkstra inverso: ";
-    std::cout << DijkstraInv(G,3,dijInv) << std::endl;
+    std::cout << DijkstraInv(G,4,dijInv) << std::endl;
 }

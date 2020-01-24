@@ -5,40 +5,45 @@
 
 using namespace std;
 
-template <typename T>
-int contarNodos(typename Abin<T>::nodo n, const Abin<T>& A)
+int contarNodosRec(typename Abin<char>::nodo n, const Abin<char> &A)
 {
-    if(n == Abin<T>::NODO_NULO)
+    if(n == Abin<char>::NODO_NULO)
     {
         return 0;
     }
     else
     {
-        return 1 + contarNodos(A.hijoIzqdoB(n), A) + contarNodos(A.hijoDrchoB(n), A);
-    }    
+        return 1 + contarNodosRec(A.hijoIzqdoB(n),A) + contarNodosRec(A.hijoDrchoB(n),A);
+    }
 }
 
-template <typename T>
-int tresDescendientesRec(typename Abin<T>::nodo n, const Abin<T>& A)
+int alturaNodoRec(typename Abin<char>::nodo n, const Abin<char> &A)
 {
-    if(n == Abin<T>::NODO_NULO)
+    if(n == Abin<char>::NODO_NULO)
+    {
+        return -1;
+    }
+    else
+    {
+        return 1 + alturaNodoRec(A.hijoIzqdoB(n),A) + alturaNodoRec(A.hijoDrchoB(n),A);
+    }
+}
+
+int profundidadNodoRec(typename Abin<char>::nodo n, const Abin<char> &A)
+{
+    if(A.padreB(n) == Abin<char>::NODO_NULO)
     {
         return 0;
     }
     else
     {
-        int cont = 0;
-        if (contarNodos(n,A) - 1 == 3)
-            cont = 1;
-        return cont + tresDescendientesRec(A.hijoIzqdoB(n), A) + tresDescendientesRec(A.hijoDrchoB(n), A);
+        return 1 + profundidadNodoRec(A.padreB(n), A);
     }
 }
 
-
-template <typename T>
-int tresDescendientes(const Abin<T>& A)
+int contarNodos(const Abin<char> &A)
 {
-    return tresDescendientesRec(A.raizB(), A);
+    return contarNodosRec(A.raizB(), A);
 }
 
 int main()
@@ -50,5 +55,6 @@ int main()
     fe.close();
     cout << "\n*** Mostrar árbol binario A ***\n";
     imprimirAbin(A); // en std::cout
-    cout << "Abuelos totales: " << tresDescendientes(A) << endl;
+    cout << "Nodos totales: " << contarNodos(A) << endl;
+    cout << "Nodos totales: " << profundidadNodoRec(A.hijoIzqdoB(A.hijoDrchoB(A.hijoDrchoB(A.raizB()))),A) << endl;
 }

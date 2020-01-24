@@ -52,6 +52,97 @@ float DistanciaEuclidea(const Ciudad &a, const Ciudad &b)
     return sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
 }
 
+void Puente(Grafo Fobos, Grafo Deimos, vector<bool> CosterasFobos, vector<bool> CosterasDeimos,
+            vector<Ciudad> ciudadesFobos, vector<Ciudad> ciudadDeimos)
+{
+    size_t n = Fobos.numVert() + Deimos.numVert();
+    Grafo G(n);
+    GrafoP<float> GP(n);
+
+    // Unir matriz de adyacencias
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < n; ++j)
+        {
+            if (i < Fobos.numVert() && j < Fobos.numVert())
+            {
+                G[i][j] = Fobos[i][j];
+            }
+            if (i >= Fobos.numVert() && i < n && j >= Fobos.numVert() && j < n)
+            {
+                G[i][j] = Deimos[i - Fobos.numVert()][j - Fobos.numVert()];
+            }
+        }
+    }
+
+    // Crear grafo ponderado
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < n; ++j)
+        {
+            if (i == j)
+            {
+                GP[i][j] = 0;
+            }
+            // Para Fobos
+            else if (i < Fobos.numVert() && j < Fobos.numVert())
+            {
+                GP[i][j] = DistanciaEuclidea(ciudadesFobos[i], ciudadesFobos[j]);
+            }
+            // Para Deimos
+            else if (i >= Fobos.numVert() && i < n && j >= Fobos.numVert() && j < n)
+            {
+                GP[i][j] = DistanciaEuclidea(ciudadDeimos[i], ciudadDeimos[j]);
+            }
+            else
+            {
+                GP[i][j] = 99;
+            }
+        }
+    }
+
+    // Obtener el puente más cercano
+    float distancia = 0;
+    float distanciaMin = 999;
+    int i_, j_;
+
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < n; ++j)
+        {
+            if (CosterasFobos[i] && CosterasDeimos[j] && i != j)
+            {
+                distancia = DistanciaEuclidea(ciudadesFobos[i], ciudadDeimos[j]);
+                if (distancia < distanciaMin)
+                {
+                    distanciaMin = distancia;
+                    i_ = i;
+                    j_ = j + Fobos.numVert();
+                }
+            }
+        }
+    }
+
+    GP[i_][j_] = GP[j_][i_] = distanciaMin;
+    matriz<float> vCosteMin;
+    matriz<GrafoP<float>::vertice> vCaminoMin;
+    vCosteMin = Floyd(GP,vCaminoMin);
+
+    for(int i = 0; i < n; ++i)
+    {
+        for(int j = 0; j < n; ++j)
+        {
+            cout << vCosteMin[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    cout << "En Fobos el puente se construye en " << i_ << "." << endl;
+    cout << "En Deimos el puente se construye en " << j_ << "." << endl;
+    cout << "El coste del puente es " << distanciaMin << "." << endl;
+}
+
+/*
 template <typename tCoste>
 tCoste SumaMatriz(const matriz<tCoste> &M)
 {
@@ -134,10 +225,12 @@ void Puente(Grafo Fobos, Grafo Deimos, vector<bool> CosterasFobos, vector<bool> 
     cout << "En Deimos el puente se construye en " << posD << "." << endl;
     cout << "El coste del puente es " << minimo << "." << endl;
 }
+*/
+
 
 int main()
 {
-    int N1 = 4, N2 = 4;
+    int N1 = 4, N2 = 5;
     Grafo g1(N1), g2(N2);
     g1[0][1] = true;
     g1[1][0] = true;
@@ -155,6 +248,7 @@ int main()
     g2[2][3] = true;
     g2[3][1] = true;
     g2[3][2] = true;
+    g2[4][4] = true;
 
     vector<bool> CosterasFobos(N1, false), CosterasDeimos(N2, false);
 
@@ -163,9 +257,10 @@ int main()
     CosterasDeimos[1] = true;
     CosterasDeimos[0] = true;
     CosterasDeimos[2] = true;
+    CosterasDeimos[4] = true;
 
     Ciudad c1(0, 4), c2(3, 7), c3(3, 5), c4(3, 3);
-    Ciudad c5(0,3), c6(1, 0), c7(1, 3), c8(2, 0);
+    Ciudad c5(0, 3), c6(1, 0), c7(1, 3), c8(2, 0), c9(5,2);
 
     vector<Ciudad> ciudadesFobos(N1), ciudadesDeimos(N2);
     ciudadesFobos[0] = c1;
@@ -176,6 +271,7 @@ int main()
     ciudadesDeimos[1] = c6;
     ciudadesDeimos[2] = c7;
     ciudadesDeimos[3] = c8;
+    ciudadesDeimos[4] = c9;
 
     Puente(g1, g2, CosterasFobos, CosterasDeimos, ciudadesFobos, ciudadesDeimos);
 }
